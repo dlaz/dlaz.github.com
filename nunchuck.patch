@@ -1,0 +1,273 @@
+Index: msg/State.msg
+===================================================================
+--- msg/State.msg	(revision 28290)
++++ msg/State.msg	(working copy)
+@@ -21,6 +21,8 @@
+ int8 MSG_BTN_UP    = 8
+ int8 MSG_BTN_DOWN  = 9
+ int8 MSG_BTN_HOME  = 10
++int8 MSG_BTN_Z     = 0
++int8 MSG_BTN_C     = 1
+ 
+ #-----------------------------
+ # Header
+Index: src/wiimote/wiistate.py
+===================================================================
+--- src/wiimote/wiistate.py	(revision 28290)
++++ src/wiimote/wiistate.py	(working copy)
+@@ -4,8 +4,8 @@
+ # RCS:          $Header: $
+ # Description:  Object representation of Wiimote's state
+ # Author:       Andreas Paepcke
+-# Created:      Thu Aug 13 11:01:34 2009
+-# Modified:     Thu Aug 20 08:46:24 2009 (Andreas Paepcke) paepcke@anw.willowgarage.com
++# Created:      Thu Aug 13 11:01:34 2009 (Andreas Paepcke) paepcke@anw.willowgarage.com
++# Modified:     Thu Mar 18 10:54:59 2010 (David Lu) davidlu@wustl.edu
+ # Language:     Python
+ # Package:      N/A
+ # Status:       Experimental (Do Not Distribute)
+@@ -13,6 +13,12 @@
+ # 
+ #
+ ################################################################################
++#
++# Revisions:
++#
++# Thu Mar 18 10:56:09 2010 (David Lu) davidlu@wustl.edu
++#  Added nunchuck state variables
++################################################################################
+ 
+ from wiimoteConstants import *
+ from wiiutils import *
+@@ -82,6 +88,10 @@
+                       BTN_MINUS: False, BTN_A: False, BTN_B: False,
+                       BTN_UP: False, BTN_DOWN: False, BTN_LEFT: False,
+                       BTN_RIGHT: False, BTN_HOME: False}
++    self.nunchukPresent = False
++    self.nunchukAcc = None
++    self.nunchukStick = None
++    self.nunchukButtons = {BTN_C: False, BTN_Z: False}
+ 
+     # Handle buttons on the WII
+     # A zero means no button is down.
+@@ -159,6 +169,16 @@
+             self.motionPlusPresent = True
+ 
+         continue
++      elif msgType == WII_MSG_TYPE_NUNCHUK:
++        nunChuk = msgComp[1];
++        if nunChuk is not None:
++            self.nunchukPresent = True
++            self.nunchukAcc = WIIReading(nunChuk['acc'], self.time)
++            self.nunchukStick = nunChuk['stick']
++            nunButtons = nunChuk['buttons']
++            self.nunchukButtons[BTN_C]  = (nunButtons & BTN_C) > 0
++            self.nunchukButtons[BTN_Z]  = (nunButtons & BTN_Z) > 0
++        continue
+        
+ 
+   #----------------------------------------
+Index: src/wiimote/wiimoteConstants.py
+===================================================================
+--- src/wiimote/wiimoteConstants.py	(revision 28290)
++++ src/wiimote/wiimoteConstants.py	(working copy)
+@@ -4,16 +4,21 @@
+ # RCS:          $Header: $
+ # Description:  Constants for Wii Arm Control
+ # Author:       Andreas Paepcke
+-# Created:      Thu Aug 13 11:44:04 2009
+-# Modified:     Mon Nov  9 12:43:53 2009 (Andreas Paepcke) paepcke@anw.willowgarage.com
++# Created:      Thu Aug 13 11:44:04 2009 (Andreas Paepcke) paepcke@anw.willowgarage.com
++# Modified:     Thu Mar 18 10:56:09 2010 (David Lu) davidlu@wustl.edu
+ # Language:     Python
+ # Package:      N/A
+ # Status:       Experimental (Do Not Distribute)
+ #
+ # #
+ ################################################################################
++#
++# Revisions:
++#
++# Thu Mar 18 10:56:09 2010 (David Lu) davidlu@wustl.edu
++#  Added nunchuck options
++################################################################################
+ 
+-
+ _DEBUGLEVEL = 1
+ _MONITOR_LEVEL = 1
+ 
+@@ -59,6 +64,10 @@
+ BTN_UP    = 0x0800                  # cwiid.CWIID_BTN_UP
+ BTN_HOME  = 0x0080                  # cwiid.CWIID_BTN_HOME
+ 
++# Nunchuck Buttons
++BTN_C     = 0x0002
++BTN_Z     = 0x0001
++
+ X   = 0
+ Y   = 1
+ Z   = 2
+@@ -139,7 +148,7 @@
+ WII_MSG_TYPE_BTN         = 1
+ WII_MSG_TYPE_ACC         = 2
+ WII_MSG_TYPE_IR          = 3
+-# WII_MSG_TYPE_NUNCHUK     = 4
++WII_MSG_TYPE_NUNCHUK     = 4
+ # WII_MSG_TYPE_CLASSIC     = 5
+ # WII_MSG_TYPE_BALANCE     = 6
+ WII_MSG_TYPE_MOTIONPLUS  = 7 # Gyro
+Index: src/wiimote/WIIMote.py
+===================================================================
+--- src/wiimote/WIIMote.py	(revision 28290)
++++ src/wiimote/WIIMote.py	(working copy)
+@@ -18,6 +18,8 @@
+ #
+ # Thu Sep 10 10:27:38 2009 (Andreas Paepcke) paepcke@anw.willowgarage.com
+ #  Added option to lock access to wiiMoteState instance variable.
++# Thu Mar 18 10:56:09 2010 (David Lu) davidlu@wustl.edu
++#  Enabled nunchuck reports
+ ################################################################################
+ 
+ # ROS-Related Imports
+@@ -195,7 +197,7 @@
+     self._wiiCallbackStack = _WiiCallbackStack(self._wm)
+ 
+     # Enable reports from the WII:
+-    self._wm.rpt_mode = cwiid.RPT_ACC | cwiid.RPT_MOTIONPLUS | cwiid.RPT_BTN | cwiid.RPT_IR
++    self._wm.rpt_mode = cwiid.RPT_ACC | cwiid.RPT_MOTIONPLUS | cwiid.RPT_BTN | cwiid.RPT_IR | cwiid.RPT_NUNCHUK
+     
+     # Set accelerometer calibration to factory defaults:
+     (factoryZero, factoryOne) = self.getAccFactoryCalibrationSettings()
+Index: nodes/wiimote_node.py
+===================================================================
+--- nodes/wiimote_node.py	(revision 28290)
++++ nodes/wiimote_node.py	(working copy)
+@@ -15,10 +15,15 @@
+ # (c) Copyright 2009, Willow Garage, all rights reserved.
+ #
+ ################################################################################
+-
++#
++# Revisions:
++#
++# Thu Mar 18 10:56:09 2010 (David Lu) davidlu@wustl.edu
++#  Enabled nunchuck message publishing
++################################################################################
+ #!/usr/bin/env python
+ 
+-"""The wiimote_node broadcasts three topics, and listens to messages that control
++"""The wiimote_node broadcasts four topics, and listens to messages that control
+ the Wiimote stick's rumble (vibration) and LEDs. Transmitted topics (@100Hz):
+ 
+    o joy/joy           Messages contain the accelerometer and gyro axis data, and all button states.
+@@ -27,6 +32,7 @@
+                        rumble (i.e. vibrator) state, IR light sensor readings, time since last zeroed, 
+                        and battery state. See State.msg
+    o imu/is_calibrated Latched message
++   o nunchuck          Joy messages using the nunchuck as a joystick
+                  
+ The node listens to the following messages:
+ 
+@@ -48,8 +54,8 @@
+ """
+ 
+ # Code structure: The main thread spawns one thread each for the 
+-# three message senders, and one thread each for the message listeners.
+-# The respective classes are IMUSender, JoySender, and WiiSender for
++# four message senders, and one thread each for the message listeners.
++# The respective classes are IMUSender, JoySender, NunSender and WiiSender for
+ # topic sending, and WiimoteListeners for the two message listeners.
+ #
+ # The Wiimote driver is encapsulated in class WIIMote (see WIIMote.py).
+@@ -105,6 +111,7 @@
+             IMUSender(wiimoteDevice, freq=100).start()
+             JoySender(wiimoteDevice, freq=100).start()
+             WiiSender(wiimoteDevice, freq=100).start()
++            NunSender(wiimoteDevice, freq=100).start()
+             WiimoteListeners(wiimoteDevice).start()
+             
+             rospy.spin()
+@@ -125,6 +132,7 @@
+             IMUSender.stop
+             JoySender.stop
+             WiiSender.stop
++            NunSender.stop
+             WiimoteListener.stop
+         except:
+             pass
+@@ -347,6 +355,75 @@
+             rospy.loginfo("Shutdown request. Shutting down Joy sender.")
+             exit(0)
+ 
++class NunSender(WiimoteDataSender):
++    
++    """Broadcasting Nunchuck accelerator and joystick readings as Joy(stick) messages to Topic joy"""
++    
++    def __init__(self, wiiMote, freq=100):
++        """Initializes the Nunchuck Joy(stick) publisher.
++    
++        Parameters:
++            wiiMote: a bluetooth-connected, calibrated WIIMote instance
++            freq:    the message sending frequency in messages/sec. Max is 100, because
++                     the Wiimote only samples the sensors at 100Hz.
++        """
++        
++        WiimoteDataSender.__init__(self, wiiMote, freq)
++
++        
++        self.pub = rospy.Publisher('nunchuk', Joy)        
++        
++    def run(self):
++        """Loop that obtains the latest nunchuck state, publishes the joystick data, and sleeps.
++        
++        The Joy.msg message types calls for just two fields: float32[] axes, and int32[] buttons.
++        """
++        
++        rospy.loginfo("Nunchuck joystick publisher starting (topic /nunchuk).")
++        self.threadName = "Nunchuck Joy topic Publisher"
++        try:
++            while not rospy.is_shutdown():
++                self.obtainWiimoteData()
++                if not self.wiistate.nunchukPresent:
++                    continue
++                scaledAcc = self.wiistate.nunchukAcc
++                (joyx, joyy) = self.wiistate.nunchukStick
++                # scale the joystick to [-1, 1]
++                joyx = -(joyx-127)/100.
++                joyy = (joyy-127)/100.
++                # create a deadzone in the middle
++                if abs(joyx) < .05:
++                    joyx = 0
++                if abs(joyy) < .05:
++                    joyy = 0
++                
++                msg = Joy(# the Joy msg does not have a header :-( header=None,
++                          axes=[joyx, joyy,
++                                scaledAcc[X], scaledAcc[Y], scaledAcc[Z]],
++                          buttons=None)
++
++                theButtons = [False,False]
++                theButtons[State.MSG_BTN_C]     = self.wiistate.nunchukButtons[BTN_C]
++                theButtons[State.MSG_BTN_Z]     = self.wiistate.nunchukButtons[BTN_Z]
++
++                msg.buttons = theButtons
++                
++                measureTime = self.wiistate.time
++                timeSecs = int(measureTime)
++                timeNSecs = int(abs(timeSecs - measureTime) * 10**9)
++                # the Joy msg does not have a header :-(
++                # msg.header.stamp.secs = timeSecs
++                # msg.header.stamp.nsecs = timeNSecs
++                
++                self.pub.publish(msg)
++                
++                rospy.logdebug("Nunchuck state:")
++                rospy.logdebug("    Nunchuck buttons: " + str(theButtons) + "\n    Nuchuck axes: " + str(msg.axes) + "\n")
++                rospy.sleep(self.sleepDuration)
++        except rospy.ROSInterruptException:
++            rospy.loginfo("Shutdown request. Shutting down Nun sender.")
++            exit(0)
++
+ class WiiSender(WiimoteDataSender):
+     """Broadcasting complete Wiimote messages to Topic wiimote"""
+     

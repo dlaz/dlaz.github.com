@@ -1,1 +1,145 @@
-nothing to see here
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script><script src="pxToEm.js"></script><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script><script>
+      function longestLine(text) {
+        lines = text.split('\n');
+        longest = 0;
+        for(var i=0; i<lines.length; i++) {
+          len = lines[i].length;
+          longest = len > longest ? len : longest;
+         }
+         return longest;
+      }
+        
+      	$().ready(function() {
+      		// $("#basicinfo li:even").addClass("colored");
+      		
+      		//setup the bibtex references
+      		$('.bibtexitem a').each(function(ix) {
+      		  text = $(this).text();
+      		  newSpan = $('<span/>').text(text);
+      		  newSpan.addClass('biblink');
+      		  $(this).replaceWith(newSpan);
+      		  newSpan.click(function() {
+      		    cite_text = $($('#bibtex pre')[ix]).text();
+      		    pub_title = cite_text.match(/\stitle\s=\s{(.+)}/)[1];
+      		    dialog = $('#ref-dialog').dialog({
+      		      modal     : true,
+      		      minWidth  : 1024,
+      		      title     : pub_title,
+      		    });
+      			dialog.children('pre').text(cite_text)
+      		  })
+      		});
+      		
+      	});
+    </script>
+    <title>Dan Lazewatsky</title>
+  </head>
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script><script type="text/javascript">
+    try {
+    	var pageTracker = _gat._getTracker("UA-12221940-1");
+    	pageTracker._trackPageview();
+    } catch(err) {}
+  </script>
+  <body>
+    <h1>Dan Lazewatsky</h1>
+    <img src="headshot.jpg" id="me" width="200" height="200">
+    <ul id="basicinfo">
+      <li>
+        <div class="colored">Contact:</div>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/danlazewatsky/">LinkedIn</a></li>
+          <li><a href="https://github.com/dlaz">github/dlaz</a></li>
+        </ul>
+      </li>
+      <li><div class="colored">Education:</div>
+        <ul>
+          <li>
+            Ph.D. Robotics | <a href="http://www.oregonstate.edu">Oregon State University</a> | <a href="http://research.engr.oregonstate.edu/prg/">Personal Robotics Group</a>
+          </li>
+          <li>B.S. Computer Science | <a href="http://www.brandeis.edu">Brandeis University</a></li>
+        </ul>
+    </ul>
+    <h2>About</h2>
+    <div class="section"><p>
+      I recently defended my PhD dissertation titled <i><a href="http://hdl.handle.net/1957/57908">Making the Unconscious Unconscious: Reclaiming Microinteractions for People with Motor Disabilities</a></i>.
+      Before starting at OSU, I was a member of the Media and Machines Lab at Washington University in St. Louis, previously earning a B.S. in Computer Science from Brandeis University. My research focused on lowering the currently high effort required for many people with motor disabilities to perform a variety of everyday tasks. These tasks, termed microinteractions are generally very fast and even unconscious for people without disabilities. This worked stemmed from the Robots for Humanity Project, a collaboration with Willow Garage and the Healthcare Robotics lab at Georgia Tech.</p>
+
+      <p>I am currently a Software Engineer at Google in NYC.</p>
+
+
+    </div>
+
+    <h2>Past Work</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="http://www.willowgarage.com/blog/2011/07/13/robots-humanity">Robots for Humanity</a>: Along with collaborators at Willow Garage, and the Healthcare Robotics Lab at Georgia Tech, I'm working on enabling persons with severe motor disabilities to use assistive mobile manipulators (AAMs) in their homes. Specifically, I'm working on moving interfaces away from the screen, to be embedded in the real world, tailored to the task at hand.
+        </li>
+        <li>
+          Adapting RIDE, a computer game-like interface designed for controlling mobile robots, for use with a multitouch interface. 
+          The goal is to use this interface to more effectively supervise large groups (or individual) of autonomous mobile robots.
+        </li>
+        <li>
+          Remote Robotic Exploration and Experimentation: A system to for teleoperation of robots, allowing people to explore Colby College's art museum from St. Louis. 
+        </li>
+      </ul>
+    </div>
+
+    <h2 id="software">Software</h2>
+    <div>
+      <h3>Author</h3>
+      <ul>
+      <li><a href="https://github.com/OSUrobotics/contextual_interfaces">contextual_interfaces</a>: interfaces that adjust based on context such as location and time</li>
+      <li><a href="https://github.com/OSUrobotics/robot_vector_control">robot_vector_control</a>: send a robot navigation goals by intersecting vectors with the floor</li>
+      <li><a href="https://github.com/OSUrobotics/splashscreen">splashscreen</a>: use ROS to control splashscreens on computer displays; useful for running user studies</li>
+      <li><a href="https://github.com/OSUrobotics/glass_ros">glass_ros</a>: Android app and corresponding ROS node to read sensor data off of Google Glass</li>
+      <li><a href="https://github.com/OSUrobotics/ros-3d-interaction">ROS 3D interaction</a>: tools for projecting and interacting with 3D interfaces embedded in the world</li>
+      <li><a href="https://github.com/OSUrobotics/projected-interface-builder">projected_interface_builder</a>: tool for graphically designing projected interfaces</li>
+      <li><a href="https://github.com/OSUrobotics/projected_numchat">projected_numchat: collaboration with CAD Lab at NEU</a>: projected interface for predictive text entry</li>
+      <li><a href="https://github.com/OSUrobotics/vlc">vlc</a>: tools for controlling VLC from ROS</li>
+      <li><a href="https://github.com/OSUrobotics/ros-phidgets-ir">ROS Phidets IR</a>: interface between Phidgets IR board and ROS</li>
+      <li><a href="https://github.com/OSUrobotics/bag2video">bag2video</a>: tool for extracting video from ROS bag files</li>
+      <li><a href="https://github.com/ros-visualization/rqt_common_plugins/tree/master/rqt_top">rqt_top</a>: tool for monitoring ROS processes</li>
+      <li><a href="https://github.com/dlaz/gmail-corpus">gmail-corpus</a>: tools for creating predictive text corpora from gmail message history</li>
+      <li><a href="https://github.com/dlaz/rosberrypi_cam">rosberrypi_cam</a>: ROS driver for raspberry pi CSI camera modules</li>
+
+      </ul>
+      <h3>Maintainer</h3>
+      <ul>
+      <li><a href="https://github.com/OSUrobotics/ros-head-tracking">head_pose_estimation</a>: 6 DoF head pose estimation from Kinect data</li>
+      <li><a href="https://github.com/OSUrobotics/rosh_core">rosh</a>: interactive python shell for ROS</li>
+      <li><a href="https://github.com/wg-perception/people">people</a>: people detection and tracking algorithms in ROS</li>
+      <li><a href="https://github.com/ar-tools/ar_tools">ar_tools</a>: ROS wrapper around ARToolkit for detecting AR tags</li>
+      </ul>
+    </div>
+    <h2>(Maybe) Useful Tips and Tricks</h2>
+    <div>
+      <ul>
+        <li><a href="latex.html">Latex</a></li>
+        <li><a href="python.html">Python</a></li>
+        <li><a href="matlab.html">MATLAB</a></li>
+        <li><a href="hardware.html">Hardware Designs</a></li>
+      </ul>
+    </div>
+    <h2>Publications</h2>
+    <div>
+      <!--#include virtual="danpapers.html" -->
+    </div>
+    <div id="bibtex" style="display:none">
+      <!--#include virtual="danpapers_bib.html" -->
+    </div>
+    <div id="ref-dialog" style="display:none">
+      <pre></pre>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+export BIBINPUTS=.
+bibtex2html -u -r -nodoc -nokeywords -nodoi -html-entities -d danpapers.bib

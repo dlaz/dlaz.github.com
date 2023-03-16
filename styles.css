@@ -1,0 +1,102 @@
+body {
+	font-family: 'Droid Sans', sans-serif;
+    max-width: 1024px;
+	margin-bottom: 3em;
+	margin: 0 auto; 
+}
+
+@media only screen and (max-device-width: 480px) {
+    body {
+        font-size: xx-large;
+    }
+}
+
+blockquote {
+	margin-top:0;
+	margin-bottom: 0;
+	margin-left: 1em;
+}
+em {
+	font-weight: normal;
+}
+h1 {
+	background-color: #CCC;
+}
+img#me {
+	float: left;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
+
+}
+h2 {
+	clear: left;
+	margin-top: 0em;
+	padding: 0.25em 0em 0.25em 0.25em;
+	margin-bottom: 0;
+}
+
+ul#basicinfo {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul#basicinfo, ul#basicinfo ul {
+  list-style-type: none;
+}
+
+ul#basicinfo, ul#basicinfo ul li {
+  /*margin-left: 1em;*/
+}
+
+.colored, h2 {
+	background-color: #EEE;
+}
+a, a:visited, span.biblink {
+    color:maroon;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.caption {
+    font-size: small;
+    margin-bottom: 1em;
+}
+ol ol {
+	list-style-type: upper-alpha;
+}
+ol ol ol {
+	list-style-type: lower-alpha;
+}
+p {
+	/*padding-top: 1em;*/
+	margin-top:0;
+}
+pre {
+background-color: #EEE;
+border: 1px dashed #CCC;
+padding: 0.5em;
+margin-left: 1em;
+}
+
+div.section {
+	padding: 1.5em;
+}
+
+.ui-dialog {
+	background-color: white;
+	border: 1px solid #999;
+	padding: 0.25em;
+	border-radius: 5px;
+}
+.ui-dialog-title {
+	font-weight: bold;
+}
+
+.ui-icon-closethick {
+	float: right;
+
+}
+
+td.bibtexitem {
+	padding-bottom: 0.2em;
+}
