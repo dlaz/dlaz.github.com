@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+		<!--link href="log.php"/-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+		<link href="prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="prettify/prettify.js"></script>
+		<script>
+			$().ready(function() {
+				$("#basicinfo tr:even").addClass("colored");
+				prettyPrint();
+			});
+		</script>
+		<title>Latex Tips and Tricks</title>
+	</head>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+	var pageTracker = _gat._getTracker("UA-12221940-1");
+	pageTracker._trackPageview();
+} catch(err) {}</script>
+	<body>
+		<h1>Latex Tips and Tricks</h1>
+		Some latex things that may be helpful for other people (but are mostly here so I can find them).
+		<h2>Single Author with Multiple Affiliations</h2>
+		This has been tested with the ACM <tt>sig-alt-release2</tt> documentclass. YMMV with others.
+		Insert the following into the preamble:<pre class="prettyprint">
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+\def\sharedaffiliation{\end{tabular}\newline\begin{tabular}{c}}</pre>
+	  For clarity, it is helpful to define commands for the different reference symbols. For example:
+	  <pre class="prettyprint">
+\def\wu{\superscript{*}}
+\def\wg{\superscript{\dag}}</pre>
+    Now in the body, authors and affiliations can be defined as follows:
+    <pre class="prettyprint">
+\numberofauthors{2}
+\author{
+  \alignauthor \ Daniel A.~Lazewatsky\wu\\
+  \email{dlaz@cse.wustl.edu}
+  %
+  \alignauthor \ William D.~Smart\wu\wg\\
+  \email{wds@cse.wustl.edu}
+  %
+  \sharedaffiliation
+  \begin{tabular}{ccc}
+    \affaddr{{\wu}Washington University{\ }} &amp; &amp; \affaddr{{\wg}Willow Garage{\ }} \\
+    \affaddr{One Brookings Drive}            &amp; &amp; \affaddr{68 Willow Road} \\
+    \affaddr{St.~Louis, MO 63130}            &amp; &amp; \affaddr{Menlo Park, CA 94025} \\
+    \affaddr{United States}                  &amp; &amp; \affaddr{United States} \\
+  \end{tabular}
+}</pre>
+    <img src="images/sharedaffiliation.png"/>
+    
+    <h2>How the heck do I typeset a tilde?</h2>
+    Depends what you're trying to do.
+    <ul>
+      <li>Directly in text, <tt>\textasciitilde</tt> works.</li>
+      <li>For URLs, use the url package, and use the <tt>\url{}</tt> command, which will interpret the tilde correctly.
+        <pre class="prettyprint">\url{http://cse.wustl.edu/~dlaz}</pre>
+	  <li>To accent a symbol with a tilde in math mode, use <tt>\tilde{a}</tt></li>
+    </ul>
+    <h2>The publisher changed up the template on me and now my paper is too long!</h2>
+    Section headings take up a ridiculous amount of room, especially in ACM templates. Try getting rid of subsection headings if possible. You can also 
+    reduce the amount of whitespace around elements using the <tt>titlesec</tt> package.<br/>
+    You can squeeze heading whitespace as follows (in the preamble):
+    <pre class="prettyprint">
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{*0.7}{*0.5}</pre>
+    If Latex now complains about commands not existing, that's probably because your documentclass doesn't define something that titlesec is trying to modify. If, for example, it complains that <tt>\subparagraph</tt> doesn't exist, simply add a dummy command:
+    <pre class="prettyprint">\newcommand{\subparagraph}{}</pre>
+
+	<h2>There's a symbol I want to use, but I don't know what it's called</h2>
+	<a href="http://detexify.kirelabs.org/classify.html"/>Detexify</a> lets you draw symbols and tells you what the corresponding latex command is.
+
+	</body>
+</html>

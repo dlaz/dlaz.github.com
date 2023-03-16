@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+		<!--link href="log.php"/-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+		<link href="prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="prettify/prettify.js"></script>
+		<script>
+			$().ready(function() {
+				$("#basicinfo tr:even").addClass("colored");
+				prettyPrint();
+			});
+		</script>
+		<title>MATLAB Tips and Tricks</title>
+	</head>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+	var pageTracker = _gat._getTracker("UA-12221940-1");
+	pageTracker._trackPageview();
+} catch(err) {}</script>
+	<body>
+		<h1>MATLAB Tips and Tricks</h1>
+    <h2>Plotting On Top of a Bar Graph with Separate Axes</h2>
+    This is only somewhat convoluted. The following code will produce a histogram of some samples drawn from a Gaussian distribution, along with a line graph of the probabilities. Since the counts will be large numbers, and the probabilities will all be less than 1, we need multiple y-axes. 
+    <pre class="prettyprint">
+nbins = 20;
+samples = randn(100000,1);
+
+[n, xout] = hist(samples, nbins);
+bar(xout, n);
+hold on;
+plot(xout, n, 'c', 'LineWidth', 2)
+
+% get the currrent axis
+ax1 = gca;
+% create a second axis
+ax2 = axes('Position', get(ax1, 'Position'));
+
+% set the location of ax2's y axis to the right,
+% with no color, and remove the x ticks
+set(ax2, 'YAxisLocation', 'right', 'Color', 'none', 'XTickLabel', [])
+
+% this will get rid of the ticks from ax1 on the right of the plot
+set(ax1, 'box', 'off')
+
+xlabel('Value')
+ylabel(ax1, 'Counts')
+ylabel(ax2, 'Probability')</pre>
+    <img src="images/overlay.png">
+    
+	</body>
+</html>

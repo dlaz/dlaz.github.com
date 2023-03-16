@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+		<!--link href="log.php"/-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+		<link href="prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="prettify/prettify.js"></script>
+		<script>
+			$().ready(function() {
+				$("#basicinfo tr:even").addClass("colored");
+				prettyPrint();
+			});
+		</script>
+		<title>Hardware Designs</title>
+	</head>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+	var pageTracker = _gat._getTracker("UA-12221940-1");
+	pageTracker._trackPageview();
+} catch(err) {}</script>
+	<body>
+		<h1>Hardware Designs</h1>
+		<p>These designs are released under the <a href="http://www.freebsd.org/copyright/freebsd-doc-license.html">FreeBSD Documentation License</a>.</p>
+		<h2>PR2 Head Mount for Asus Xtion PRO</h2>
+		<p>Screws into the screw holes holding the Xtion's case together, and mounts on the PR2's head using the 25mm bolt pattern.</p>
+		<span>Download: <a href="models/xtion_mount.skp">Google SketchUp</a> <a href="models/xtion_mount.dae">Collada</a></span>
+	<div>
+		<img src="images/hardware/xtion_mount.png"/>
+	</div>
+    <h2>Tripod Mount for Asus Xtion PRO</h2>
+	<p>Xtion snaps into the top, and a 1/4"-20 nut snaps into the bottom.</p>
+	<span>Download: <a href="models/xtion_tripod_mount.skp">Google SketchUp</a> <a href="models/xtion_tripod_mount.dae">Collada</a></span>
+	<div>
+		<img src="images/hardware/xtion_tripod_top.png"/>
+		<img src="images/hardware/xtion_tripod_bottom.png"/>		
+	</div>
+
+    <h2>PR2 Head Mount for Dell M110 Projector</h2>
+	<span>Download: <a href="models/projector_mount.skp">Google SketchUp</a> <a href="models/projector_mount.dae">Collada</a></span>
+    <div>
+		<img src="images/hardware/projector_top.png"/>
+		<img src="images/hardware/projector_bottom.png"/>
+	</div>
+	<h2>FitPC-2 Bolt Pattern Mount </h2>
+	<p>Screws to bottom of FitPC. Since the FitPC gets quite hot, this should probably be machined from metal rather than 3D printed.</p>
+	<span>Download: <a href="models/fitpc_mount.skp">Google SketchUp</a> <a href="models/fitpc_mount.dae">Collada</a></span>
+	<div>
+		<img src="images/hardware/fitpc_bottom.png"/>
+		<img src="images/hardware/fitpc_top.png"/>
+	</div>
+
+	</body>
+</html>
