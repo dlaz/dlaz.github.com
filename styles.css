@@ -7,7 +7,7 @@ body {
 
 @media only screen and (max-device-width: 480px) {
     body {
-        font-size: xx-large;
+        font-size: large;
     }
 }
 
