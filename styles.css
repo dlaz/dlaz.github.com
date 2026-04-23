@@ -1,102 +1,224 @@
+/* ── Design tokens ── */
+:root {
+    --accent: #1e40af;
+    --accent-light: #eff6ff;
+    --text-primary: #111827;
+    --text-muted: #6b7280;
+    --divider: #e5e7eb;
+    --bg: #ffffff;
+    --hover-bg: #f8faff;
+}
+
+/* ── Base ── */
 body {
-	font-family: 'Droid Sans', sans-serif;
-    max-width: 1024px;
-	margin-bottom: 3em;
-	margin: 0 auto; 
+    font-family: 'Inter', 'Droid Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg);
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
 }
 
 @media only screen and (max-device-width: 480px) {
     body {
-        font-size: large;
+        padding: 1rem 1rem 3rem;
     }
 }
 
 blockquote {
-	margin-top:0;
-	margin-bottom: 0;
-	margin-left: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
 }
 em {
-	font-weight: normal;
+    font-weight: normal;
 }
-h1 {
-	background-color: #CCC;
+
+/* ── Profile header ── */
+.profile {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 0.5rem;
+}
+.profile-text h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.15em;
+    color: var(--text-primary);
+    background: none;
+    padding: 0;
 }
 img#me {
-	float: left;
-	padding-right: 0.5em;
-	padding-bottom: 0.5em;
-
-}
-h2 {
-	clear: left;
-	margin-top: 0em;
-	padding: 0.25em 0em 0.25em 0.25em;
-	margin-bottom: 0;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--divider);
+    flex-shrink: 0;
 }
 
+/* ── Contact chips ── */
+.contact-chips {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0.6rem;
+}
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3em 0.75em;
+    border: 1px solid var(--divider);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+}
+.chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+}
+.chip svg {
+    flex-shrink: 0;
+}
+
+/* ── Education inline list ── */
 ul#basicinfo {
-    display: inline-block;
     padding: 0;
+    margin: 0.5rem 0 0;
+    list-style: none;
+}
+ul#basicinfo ul {
+    list-style: none;
+    padding-left: 0;
     margin: 0;
 }
-
-ul#basicinfo, ul#basicinfo ul {
-  list-style-type: none;
+ul#basicinfo > li > div.colored {
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.2em;
+    background: none;
+}
+ul#basicinfo ul li {
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-ul#basicinfo, ul#basicinfo ul li {
-  /*margin-left: 1em;*/
+/* ── Section headings ── */
+h2 {
+    clear: both;
+    background: none;
+    border-left: 4px solid var(--accent);
+    padding: 0.1em 0 0.1em 0.7rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
 }
 
-.colored, h2 {
-	background-color: #EEE;
-}
+/* ── Links ── */
 a, a:visited, span.biblink {
-    color:maroon;
-	text-decoration: underline;
-	cursor: pointer;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
 }
+a:hover {
+    color: #1e3a8a;
+}
+
+/* ── Work experience job entries ── */
+.job {
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.15s;
+    margin-bottom: 0.25rem;
+}
+.job:hover {
+    background: var(--hover-bg);
+}
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.company {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+.job-dates {
+    font-size: 0.78rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.2em 0.65em;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.job-role {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+/* ── Section prose ── */
+div.section {
+    padding: 0 0.75rem;
+}
+
 .caption {
     font-size: small;
     margin-bottom: 1em;
 }
 ol ol {
-	list-style-type: upper-alpha;
+    list-style-type: upper-alpha;
 }
 ol ol ol {
-	list-style-type: lower-alpha;
+    list-style-type: lower-alpha;
 }
 p {
-	/*padding-top: 1em;*/
-	margin-top:0;
+    margin-top: 0;
 }
 pre {
-background-color: #EEE;
-border: 1px dashed #CCC;
-padding: 0.5em;
-margin-left: 1em;
+    background-color: #f3f4f6;
+    border: 1px dashed var(--divider);
+    padding: 0.5em;
+    margin-left: 1em;
+    border-radius: 4px;
 }
 
-div.section {
-	padding: 1.5em;
-}
-
+/* ── Dialogs ── */
 .ui-dialog {
-	background-color: white;
-	border: 1px solid #999;
-	padding: 0.25em;
-	border-radius: 5px;
+    background-color: white;
+    border: 1px solid #999;
+    padding: 0.25em;
+    border-radius: 5px;
 }
 .ui-dialog-title {
-	font-weight: bold;
+    font-weight: bold;
 }
-
 .ui-icon-closethick {
-	float: right;
-
+    float: right;
 }
 
+/* ── Publications table ── */
 td.bibtexitem {
-	padding-bottom: 0.2em;
+    padding-bottom: 0.2em;
 }
