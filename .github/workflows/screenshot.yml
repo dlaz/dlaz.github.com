@@ -20,52 +20,35 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - name: Start HTTP server
+      - name: Cache Puppeteer Chrome
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-chrome-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-chrome-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Ghostscript
+        run: sudo apt-get install -y ghostscript
+
+      - name: Build HTML and PDF
+        run: node build.js
+
+      - name: Convert PDF pages to PNG
         run: |
-          python3 -m http.server 8080 &
-          # Wait until the server is actually accepting connections
-          for i in $(seq 1 10); do
-            curl -sf http://localhost:8080/ > /dev/null && break
-            sleep 1
-          done
-
-      - name: Install Playwright
-        run: |
-          npm install playwright
-          npx playwright install chromium --with-deps
-
-      - name: Take screenshots
-        run: |
-          node - <<'EOF'
-          const { chromium } = require('playwright');
-          (async () => {
-            const browser = await chromium.launch();
-
-            // HTML (screen) screenshot
-            const htmlPage = await browser.newPage();
-            await htmlPage.setViewportSize({ width: 1920, height: 1080 });
-            await htmlPage.goto('http://localhost:8080/index.html', { waitUntil: 'load', timeout: 30000 });
-            await htmlPage.screenshot({ path: 'screenshot.png', fullPage: true });
-            console.log('HTML screenshot taken');
-
-            // PDF (print) screenshot
-            const pdfPage = await browser.newPage();
-            await pdfPage.setViewportSize({ width: 1920, height: 1080 });
-            await pdfPage.goto('http://localhost:8080/index.html', { waitUntil: 'load', timeout: 30000 });
-            await pdfPage.emulateMedia({ media: 'print' });
-            await pdfPage.screenshot({ path: 'screenshot-pdf.png', fullPage: true });
-            console.log('PDF screenshot taken');
-
-            await browser.close();
-          })().catch(err => { console.error(err); process.exit(1); });
-          EOF
+          gs -dNOPAUSE -dBATCH -sDEVICE=png16m -r150 \
+            -sOutputFile='screenshots/pdf-page-%d.png' resume.pdf
 
       - name: Push screenshots to screenshots branch
         id: store
         run: |
           HTML_FILE="run-${{ github.run_id }}-html.png"
-          PDF_FILE="run-${{ github.run_id }}-pdf.png"
+          PDF_P1_FILE="run-${{ github.run_id }}-pdf-p1.png"
+          PDF_P2_FILE="run-${{ github.run_id }}-pdf-p2.png"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -80,15 +63,28 @@ jobs:
             git worktree add --orphan -b screenshots-ci /tmp/screenshots-worktree
           fi
 
-          cp screenshot.png "/tmp/screenshots-worktree/$HTML_FILE"
-          cp screenshot-pdf.png "/tmp/screenshots-worktree/$PDF_FILE"
+          cp screenshots/html-screenshot.png "/tmp/screenshots-worktree/$HTML_FILE"
+          cp screenshots/pdf-page-1.png "/tmp/screenshots-worktree/$PDF_P1_FILE"
+
+          HAS_P2=false
+          if [ -f screenshots/pdf-page-2.png ]; then
+            cp screenshots/pdf-page-2.png "/tmp/screenshots-worktree/$PDF_P2_FILE"
+            HAS_P2=true
+          fi
+
           cd /tmp/screenshots-worktree
-          git add "$HTML_FILE" "$PDF_FILE"
+          git add "$HTML_FILE" "$PDF_P1_FILE"
+          if $HAS_P2; then git add "$PDF_P2_FILE"; fi
           git commit -m "Screenshots for run ${{ github.run_id }}"
           git push origin HEAD:screenshots
 
-          echo "html_url=https://raw.githubusercontent.com/${{ github.repository }}/screenshots/$HTML_FILE" >> "$GITHUB_OUTPUT"
-          echo "pdf_url=https://raw.githubusercontent.com/${{ github.repository }}/screenshots/$PDF_FILE" >> "$GITHUB_OUTPUT"
+          BASE_URL="https://raw.githubusercontent.com/${{ github.repository }}/screenshots"
+          echo "html_url=${BASE_URL}/${HTML_FILE}" >> "$GITHUB_OUTPUT"
+          echo "pdf_p1_url=${BASE_URL}/${PDF_P1_FILE}" >> "$GITHUB_OUTPUT"
+          if $HAS_P2; then
+            echo "pdf_p2_url=${BASE_URL}/${PDF_P2_FILE}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "has_p2=${HAS_P2}" >> "$GITHUB_OUTPUT"
 
       - name: Comment on PR
         if: github.event_name == 'pull_request'
@@ -96,11 +92,19 @@ jobs:
         with:
           script: |
             const htmlUrl = '${{ steps.store.outputs.html_url }}';
-            const pdfUrl = '${{ steps.store.outputs.pdf_url }}';
+            const pdfP1Url = '${{ steps.store.outputs.pdf_p1_url }}';
+            const pdfP2Url = '${{ steps.store.outputs.pdf_p2_url }}';
+            const hasP2 = '${{ steps.store.outputs.has_p2 }}' === 'true';
             const runUrl = `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`;
+
+            let pdfSection = `### PDF (page 1)\n![PDF Page 1](${pdfP1Url})\n`;
+            if (hasP2) {
+              pdfSection += `\n### PDF (page 2)\n![PDF Page 2](${pdfP2Url})\n`;
+            }
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.pull_request.number,
-              body: `## 📸 Screenshot Preview\n\n### HTML (screen)\n![HTML Preview](${htmlUrl})\n\n### PDF (print)\n![PDF Preview](${pdfUrl})\n\n*Generated by [run #${{ github.run_id }}](${runUrl})*`,
+              body: `## 📸 Screenshot Preview\n\n### HTML (screen)\n![HTML Preview](${htmlUrl})\n\n${pdfSection}\n*Generated by [run #${{ github.run_id }}](${runUrl})*`,
             });
