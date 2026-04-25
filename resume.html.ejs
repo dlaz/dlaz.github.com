@@ -85,8 +85,26 @@
     <div class="job-role"><%= job.role %></div>
     <ul>
 <% job.projects.forEach(function(project) { %>
+<%   var dateRange = '';
+     if (project.start_year) {
+       if (!project.end_year) {
+         dateRange = project.start_year + ' \u2013 present';
+       } else if (project.start_year === project.end_year) {
+         dateRange = String(project.start_year);
+       } else {
+         dateRange = project.start_year + ' \u2013 ' + project.end_year;
+       }
+     }
+%>
       <li class="project-item">
-        <span class="project-title"><% if (project.url) { %><a href="<%= project.url %>" target="_blank" rel="noopener noreferrer"><%= project.title %></a><% } else { %><%= project.title %><% } %></span> <span class="project-role">(<%= project.roleLabel %>)</span>
+        <div class="project-header">
+          <div class="project-meta">
+            <span class="project-title"><% if (project.url) { %><a href="<%= project.url %>" target="_blank" rel="noopener noreferrer"><%= project.title %></a><% } else { %><%= project.title %><% } %></span> <span class="project-role">(<%= project.roleLabel %>)</span>
+          </div>
+<% if (dateRange) { %>
+          <span class="project-dates"><%= dateRange %></span>
+<% } %>
+        </div>
         <ul>
 <% project.items.forEach(function(item) { %>
           <li><%= item %></li>

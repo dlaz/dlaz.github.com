@@ -47,6 +47,8 @@
       "projects": [
         {
           "title": "Lumi by Pampers",
+          "start_year": 2019,
+          "end_year": 2020,
           "url": "https://web.archive.org/web/20240902050109/https://news.pg.com/news-releases/news-details/2020/Baby-Monitoring-Takes-a-Quantum-Leap-Lumi-by-Pampers-All-in-One-Connected-Baby-Care-System-Unveiled-at-CES-2020/default.aspx",
           "roleLabel": "Tech Lead",
           "items": [
@@ -56,6 +58,8 @@
         },
         {
           "title": "Healthy at Work",
+          "start_year": 2020,
+          "end_year": 2022,
           "url": "https://verily.com/perspectives/verily-launches-healthy-at-work-program-to-support-organizations-in-their-efforts-to-ensure-a-safe-return-to-work-and-school",
           "roleLabel": "Tech Lead",
           "items": [
@@ -66,6 +70,8 @@
         },
         {
           "title": "Verily Retinal Service",
+          "start_year": 2022,
+          "end_year": 2025,
           "roleLabel": "Tech Lead, Engineering Manager",
           "items": [
             "Led development of core services including multiple microservices and frontends through exploration, refinement, testing to on-time public launch.",
@@ -75,6 +81,8 @@
         },
         {
           "title": "Consumer Health Systems, Verily Lightpath",
+          "start_year": 2025,
+          "end_year": 2025,
           "roleLabel": "Software Engineer",
           "items": [
             "Built integrations with biometrics devices (blood glucose monitors, blood pressure cuffs, etc.) for chronic condition management.",
@@ -83,6 +91,7 @@
         },
         {
           "title": "Enrollment, Verily Lightpath & VerilyMe",
+          "start_year": 2025,
           "roleLabel": "Tech Lead",
           "items": [
             "Led the team responsible for users' first interactions with the VerilyMe app, both for consumers and Lightpath customers, ensuring seamless onboarding and leak-free funnel."
