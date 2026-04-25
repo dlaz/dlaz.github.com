@@ -256,7 +256,8 @@ td.bibtexitem {
     #ref-dialog,
     #publications-section,
     .no-pdf,
-    .ui-dialog {
+    .ui-dialog,
+    img#me {
         display: none !important;
     }
     /* Remove hover transitions */
