@@ -183,6 +183,24 @@ div.section {
     padding: 0 0.75rem;
 }
 
+/* ── Skills section ── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1.25rem;
+    padding: 0 0.75rem;
+}
+.skills-category {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+.skills-items {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
 .caption {
     font-size: small;
     margin-bottom: 1em;

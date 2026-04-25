@@ -111,6 +111,16 @@
   </div>
 <% }); %>
 
+  <h2>Skills</h2>
+  <div class="skills-grid">
+<% Object.entries(data.skills).forEach(function([category, items]) { %>
+    <div class="skills-row">
+      <div class="skills-category"><%= category %></div>
+      <div class="skills-items"><%= items.join(', ') %></div>
+    </div>
+<% }); %>
+  </div>
+
   <h2>Research</h2>
   <div>
     <ul>
