@@ -222,3 +222,30 @@ pre {
 td.bibtexitem {
     padding-bottom: 0.2em;
 }
+
+/* ── Print / PDF ── */
+@media print {
+    body {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    /* Suppress interactive-only elements */
+    #bibtex,
+    #ref-dialog,
+    .ui-dialog {
+        display: none !important;
+    }
+    /* Remove hover transitions */
+    .job {
+        transition: none;
+        break-inside: avoid;
+    }
+    .chip {
+        transition: none;
+    }
+    /* Keep links readable without showing full URLs */
+    a[href]::after {
+        content: none;
+    }
+}

@@ -1,0 +1,71 @@
+name: Build and Deploy Resume
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Cache Puppeteer Chrome
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-chrome-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-chrome-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build HTML and PDF
+        run: node build.js
+
+      - name: Prepare site artifact
+        run: |
+          mkdir -p _site
+          # Generated files
+          cp index.html resume.pdf _site/
+          # Static assets
+          cp styles.css headshot.jpg pxToEm.js _site/
+          # CNAME for custom domain (if present)
+          [ -f CNAME ] && cp CNAME _site/ || true
+          # Supporting pages
+          cp danpapers.html danpapers_bib.html _site/ 2>/dev/null || true
+          # Image directory
+          [ -d images ] && cp -r images _site/ || true
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

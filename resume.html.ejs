@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles.css" type="text/css" media="all" charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+  <script src="pxToEm.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script>
+    function longestLine(text) {
+      lines = text.split('\n');
+      longest = 0;
+      for (var i = 0; i < lines.length; i++) {
+        len = lines[i].length;
+        longest = len > longest ? len : longest;
+      }
+      return longest;
+    }
+
+    $().ready(function () {
+      //setup the bibtex references
+      $('.bibtexitem a').each(function (ix) {
+        text = $(this).text();
+        newSpan = $('<span/>').text(text);
+        newSpan.addClass('biblink');
+        $(this).replaceWith(newSpan);
+        newSpan.click(function () {
+          cite_text = $($('#bibtex pre')[ix]).text();
+          pub_title = cite_text.match(/\stitle\s=\s\{(.+)\}/)[1];
+          dialog = $('#ref-dialog').dialog({
+            modal: true,
+            minWidth: 1024,
+            title: pub_title,
+          });
+          dialog.children('pre').text(cite_text)
+        })
+      });
+
+    });
+  </script>
+  <title><%= data.profile.name %></title>
+</head>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("UA-12221940-1");
+    pageTracker._trackPageview();
+  } catch (err) { }
+</script>
+
+<body>
+  <div class="profile">
+    <img src="<%= data.profile.headshot %>" id="me" width="110" height="110" alt="<%= data.profile.name %>">
+    <div class="profile-text">
+      <h1><%= data.profile.name %></h1>
+      <div class="contact-chips">
+<% data.profile.links.forEach(function(link) { %>
+        <a href="<%= link.url %>" class="chip" target="_blank" rel="noopener noreferrer">
+          <%- icons[link.icon] %>
+          <%= link.label %>
+        </a>
+<% }); %>
+      </div>
+      <ul id="basicinfo">
+        <li>
+          <div class="colored">Education</div>
+          <ul>
+<% data.education.forEach(function(edu) { %>
+            <li>
+              <%= edu.degree %> | <a href="<%= edu.institutionUrl %>"><%= edu.institution %></a><% if (edu.group) { %> | <a href="<%= edu.groupUrl %>"><%= edu.group %></a><% } %>
+            </li>
+<% }); %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <h2>About</h2>
+  <div class="section">
+<% data.about.forEach(function(para) { %>
+    <p><%= para %></p>
+<% }); %>
+  </div>
+
+  <h2>Work Experience</h2>
+<% data.experience.forEach(function(job) { %>
+  <div class="job">
+    <div class="job-header">
+      <span class="company"><%= job.company %></span>
+      <span class="job-dates"><%= job.dates %></span>
+    </div>
+    <div class="job-role"><%= job.role %></div>
+    <ul>
+<% job.projects.forEach(function(project) { %>
+      <li>
+<% if (project.url) { %><a href="<%= project.url %>" target="_blank" rel="noopener noreferrer"><%= project.title %></a><% } else { %><%= project.title %><% } %> (<%= project.roleLabel %>)
+        <ul>
+<% project.items.forEach(function(item) { %>
+          <li><%= item %></li>
+<% }); %>
+        </ul>
+      </li>
+<% }); %>
+    </ul>
+  </div>
+<% }); %>
+
+  <h2>Research</h2>
+  <div>
+    <ul>
+<% data.research.forEach(function(item) { %>
+      <li>
+<% if (item.title) { %>
+        <a href="<%= item.url %>"><%= item.title %></a>: <%= item.description %>
+<% } else { %>
+        <%= item.description %>
+<% } %>
+      </li>
+<% }); %>
+    </ul>
+  </div>
+
+  <h2 id="software">Software</h2>
+  <div>
+    <h3>Author</h3>
+    <ul>
+<% data.software.author.forEach(function(sw) { %>
+      <li><a href="<%= sw.url %>"><%= sw.name %></a>: <%= sw.description %></li>
+<% }); %>
+    </ul>
+    <h3>Maintainer</h3>
+    <ul>
+<% data.software.maintainer.forEach(function(sw) { %>
+      <li><a href="<%= sw.url %>"><%= sw.name %></a>: <%= sw.description %></li>
+<% }); %>
+    </ul>
+  </div>
+
+  <h2>Publications</h2>
+  <div>
+    <table>
+<% data.publications.forEach(function(pub) { %>
+      <tr valign="top">
+        <td align="right" class="bibtexnumber">
+          [<a name="<%= pub.key %>"><%= pub.displayNumber %></a>]
+        </td>
+        <td class="bibtexitem">
+          <%- pub.authorsHtml %>
+          <%= pub.displayTitle %><%- formatCitation(pub) %>
+          [&nbsp;<a href="danpapers_bib.html#<%= pub.key %>">bib</a>&nbsp;]
+        </td>
+      </tr>
+<% }); %>
+    </table>
+    <hr>
+    <p><em>This file was generated by
+        <a href="http://www.lri.fr/~filliatr/bibtex2html/">bibtex2html</a> 1.98.</em></p>
+  </div>
+
+  <div id="bibtex" style="display:none">
+    <h1>danpapers.bib</h1>
+<% data.publications.forEach(function(pub) { %>
+    <a name="<%= pub.key %>"></a>
+    <pre><%- buildBibtexHtml(pub) %>
+</pre>
+<% }); %>
+    <hr>
+    <p><em>This file was generated by
+        <a href="http://www.lri.fr/~filliatr/bibtex2html/">bibtex2html</a> 1.98.</em></p>
+  </div>
+  <div id="ref-dialog" style="display:none">
+    <pre></pre>
+  </div>
+</body>
+
+</html>
