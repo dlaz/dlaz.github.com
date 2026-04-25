@@ -107,6 +107,8 @@ async function build() {
     // Hide sections that should not appear in the PDF
     await page.evaluate(() => {
       document.querySelectorAll('.no-pdf').forEach(el => { el.style.display = 'none'; });
+      const headshot = document.getElementById('me');
+      if (headshot) headshot.style.display = 'none';
     });
     // Inject compact styles to keep the PDF to ≤2 pages
     await page.addStyleTag({ content: `
