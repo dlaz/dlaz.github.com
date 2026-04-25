@@ -114,25 +114,25 @@ async function build() {
       const headshot = document.getElementById('me');
       if (headshot) headshot.style.display = 'none';
     });
-    // Inject compact styles to keep the PDF to ≤2 pages
+    // Inject compact styles to keep the PDF to 2 pages with a clean break before Google
     await page.addStyleTag({ content: `
-      body { font-size: 0.845rem; line-height: 1.3; }
-      .profile { padding-bottom: 0.4rem; margin-bottom: 0; }
-      h2 { margin-top: 0.4rem; margin-bottom: 0.25rem; }
-      .job { padding: 0.2rem 0.5rem; margin-bottom: 0; }
-      .job-role { margin-bottom: 0.08rem; }
-      ul { margin-top: 0.08rem; margin-bottom: 0.08rem; }
+      body { font-size: 0.875rem; line-height: 1.35; }
+      .profile { padding-bottom: 0.5rem; margin-bottom: 0; }
+      h2 { margin-top: 0.5rem; margin-bottom: 0.3rem; }
+      .job { padding: 0.25rem 0.5rem; margin-bottom: 0; }
+      .job-role { margin-bottom: 0.1rem; }
+      ul { margin-top: 0.1rem; margin-bottom: 0.1rem; }
       li { margin-bottom: 0; }
-      .skills-grid { gap: 0.08rem 1rem; }
-      .section p { margin-bottom: 0.25rem; }
-      .education-list { padding-top: 0; }
-      .edu-item { padding: 0.1rem 0; }
+      .skills-grid { gap: 0.1rem 1rem; }
+      .section p { margin-bottom: 0.3rem; }
       .project-item { break-inside: avoid; page-break-inside: avoid; }
+      /* Force page break before Google so all Verily content stays on page 1 */
+      .job + .job { break-before: page; page-break-before: always; }
     ` });
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),
       format: 'Letter',
-      margin: { top: '0.55in', right: '0.75in', bottom: '0.55in', left: '0.75in' },
+      margin: { top: '0.75in', right: '0.75in', bottom: '0.75in', left: '0.75in' },
       printBackground: true,
     });
     console.log('✓ Generated resume.pdf');
