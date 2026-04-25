@@ -1,0 +1,15 @@
+{
+  "name": "dlaz-resume",
+  "version": "1.0.0",
+  "description": "Resume build system — generates index.html and resume.pdf from resume.json",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "puppeteer": "^24.15.0"
+  }
+}

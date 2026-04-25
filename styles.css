@@ -183,6 +183,27 @@ div.section {
     padding: 0 0.75rem;
 }
 
+/* ── Skills section ── */
+.skills-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1.25rem;
+    padding: 0 0.75rem;
+}
+.skills-row {
+    display: contents;
+}
+.skills-category {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+.skills-items {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
 .caption {
     font-size: small;
     margin-bottom: 1em;
@@ -221,4 +242,33 @@ pre {
 /* ── Publications table ── */
 td.bibtexitem {
     padding-bottom: 0.2em;
+}
+
+/* ── Print / PDF ── */
+@media print {
+    body {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    /* Suppress interactive-only elements */
+    #bibtex,
+    #ref-dialog,
+    #publications-section,
+    .no-pdf,
+    .ui-dialog {
+        display: none !important;
+    }
+    /* Remove hover transitions */
+    .job {
+        transition: none;
+        break-inside: avoid;
+    }
+    .chip {
+        transition: none;
+    }
+    /* Keep links readable without showing full URLs */
+    a[href]::after {
+        content: none;
+    }
 }

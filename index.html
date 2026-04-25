@@ -5,34 +5,32 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="styles.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="styles.css" type="text/css" media="all" charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
   <script src="pxToEm.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
   <script>
     function longestLine(text) {
-      lines = text.split('\n');
-      longest = 0;
-      for (var i = 0; i < lines.length; i++) {
-        len = lines[i].length;
+      const lines = text.split('\n');
+      let longest = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const len = lines[i].length;
         longest = len > longest ? len : longest;
       }
       return longest;
     }
 
     $().ready(function () {
-      // $("#basicinfo li:even").addClass("colored");
-
       //setup the bibtex references
       $('.bibtexitem a').each(function (ix) {
-        text = $(this).text();
-        newSpan = $('<span/>').text(text);
+        const text = $(this).text();
+        const newSpan = $('<span/>').text(text);
         newSpan.addClass('biblink');
         $(this).replaceWith(newSpan);
         newSpan.click(function () {
-          cite_text = $($('#bibtex pre')[ix]).text();
-          pub_title = cite_text.match(/\stitle\s=\s{(.+)}/)[1];
-          dialog = $('#ref-dialog').dialog({
+          const cite_text = $($('#bibtex pre')[ix]).text();
+          const pub_title = cite_text.match(/\stitle\s=\s\{(.+)\}/)[1];
+          const dialog = $('#ref-dialog').dialog({
             modal: true,
             minWidth: 1024,
             title: pub_title,
@@ -45,16 +43,6 @@
   </script>
   <title>Dan Lazewatsky</title>
 </head>
-<script type="text/javascript">
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-  try {
-    var pageTracker = _gat._getTracker("UA-12221940-1");
-    pageTracker._trackPageview();
-  } catch (err) { }
-</script>
 
 <body>
   <div class="profile">
@@ -62,28 +50,43 @@
     <div class="profile-text">
       <h1>Dan Lazewatsky</h1>
       <div class="contact-chips">
+
         <a href="https://www.linkedin.com/in/danlazewatsky/" class="chip" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
           LinkedIn
         </a>
+
         <a href="https://github.com/dlaz" class="chip" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
           </svg>
           github/dlaz
         </a>
+
+        <a href="resume.pdf" class="chip no-pdf" download>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
       </div>
       <ul id="basicinfo">
         <li>
           <div class="colored">Education</div>
           <ul>
+
             <li>
-              Ph.D. Robotics | <a href="https://www.oregonstate.edu">Oregon State University</a> | <a
-                href="https://research.engr.oregonstate.edu/prg/">Personal Robotics Group</a>
+              Ph.D. Robotics | <a href="https://www.oregonstate.edu">Oregon State University</a> | <a href="https://research.engr.oregonstate.edu/prg/">Personal Robotics Group</a>
             </li>
-            <li>B.S. Computer Science | <a href="https://www.brandeis.edu">Brandeis University</a></li>
+
+            <li>
+              B.S. Computer Science | <a href="https://www.brandeis.edu">Brandeis University</a>
+            </li>
+
           </ul>
         </li>
       </ul>
@@ -91,19 +94,15 @@
   </div>
   <h2>About</h2>
   <div class="section">
-    <p>
-      Experienced software engineer and researcher with a strong background in building cloud infrastructure, web
-      services,
-      and applications. Particular experience managing large fleets of physical hardware requiring low latency and high
-      availability, and building insights from resulting datasets. Excels in designing and managing cloud architectures,
-      deploying cloud applications to heterogeneous environments. Proven ability to own and support software throughout
-      its
-      full lifecycle.
 
-    <p>I am currently a Software Enginner at Verily in Boston.</p>
+    <p>Experienced software engineer and researcher with a strong background in building cloud infrastructure, web services, and applications. Particular experience managing large fleets of physical hardware requiring low latency and high availability, and building insights from resulting datasets. Excels in designing and managing cloud architectures, deploying cloud applications to heterogeneous environments. Proven ability to own and support software throughout its full lifecycle.</p>
+
+    <p>I am currently a Software Engineer at Verily in Boston.</p>
+
   </div>
 
   <h2>Work Experience</h2>
+
   <div class="job">
     <div class="job-header">
       <span class="company">Verily</span>
@@ -111,46 +110,67 @@
     </div>
     <div class="job-role">Staff Software Engineer</div>
     <ul>
-      <li><a href="https://web.archive.org/web/20240902050109/https://news.pg.com/news-releases/news-details/2020/Baby-Monitoring-Takes-a-Quantum-Leap-Lumi-by-Pampers-All-in-One-Connected-Baby-Care-System-Unveiled-at-CES-2020/default.aspx" target="_blank" rel="noopener noreferrer">Lumi by Pampers</a> (Tech Lead)</li>
-      <ul>
-        <li>Led the development of a smart diaper sensor and camera system.</li>
-        <li>Built backend services to drive mobile app experience for caregivers.</li>
-      </ul>
-      <li><a
-          href="https://verily.com/perspectives/verily-launches-healthy-at-work-program-to-support-organizations-in-their-efforts-to-ensure-a-safe-return-to-work-and-school"
-          target="_blank" rel="noopener noreferrer">Healthy at Work</a> (Tech Lead)</li>
-      <ul>
-        <li>Covid testing program for educational institutions and businesses enabling safe return to school/work.</li>
-        <li>Product went from concept to launch in 6 weeks, serving hundreds of thousands of users and millions of
-          tests&nbsp;</li>
-        <li>Designed and built vendor and customer integrations, enabling fast-turnaround testing order signoff, and
-          robust,
-          flexible data pipelines for customers and internal stakeholders</li>
-      </ul>
-      <li>Verily Retinal Service</a> (Tech Lead, Engineering Manager)</li>
-      <ul>
-        <li>Led development of core services including multiple microservices and frontends through exploration,
-          refinement,
-          testing to on-time public launch</li>
-        <li>Focus on third party integrations with customers and partners (e.g. hospital EHR, image grading vendors)</li>
-        <li>Responsible for engineering coordination with cross-functional teams required for releasing regulated medical
-          software</li>
-      </ul>
-      <li>Consumer Health Systems, Verily Lightpath (Software Engineer)</li>
-      <ul>
-        <li>Built integrations with biometrics devices (blood glucose monitors, blood pressure cuffs, etc.) for chronic
-          condition management.</li>
-        <li>Built data visualizations for healthcare professionals to provide care for patients using integrated devices.
-        </li>
-      </ul>
-      <li>Enrollment, Verily Lightpath &amp; VerilyMe (Tech Lead)</li>
-      <ul>
-        <li>I lead the team responsible for users' first interactions with the VerilyMe app, both for consumers and
-          Lightpath customers, ensuring seamless onboarding and leak-free funnel.</li>
 
-      </ul>
+      <li>
+<a href="https://web.archive.org/web/20240902050109/https://news.pg.com/news-releases/news-details/2020/Baby-Monitoring-Takes-a-Quantum-Leap-Lumi-by-Pampers-All-in-One-Connected-Baby-Care-System-Unveiled-at-CES-2020/default.aspx" target="_blank" rel="noopener noreferrer">Lumi by Pampers</a> (Tech Lead)
+        <ul>
+
+          <li>Led the development of a smart diaper sensor and camera system.</li>
+
+          <li>Built backend services to drive mobile app experience for caregivers.</li>
+
+        </ul>
+      </li>
+
+      <li>
+<a href="https://verily.com/perspectives/verily-launches-healthy-at-work-program-to-support-organizations-in-their-efforts-to-ensure-a-safe-return-to-work-and-school" target="_blank" rel="noopener noreferrer">Healthy at Work</a> (Tech Lead)
+        <ul>
+
+          <li>Covid testing program for educational institutions and businesses enabling safe return to school/work.</li>
+
+          <li>Product went from concept to launch in 6 weeks, serving hundreds of thousands of users and millions of tests.</li>
+
+          <li>Designed and built vendor and customer integrations, enabling fast-turnaround testing order signoff, and robust, flexible data pipelines for customers and internal stakeholders.</li>
+
+        </ul>
+      </li>
+
+      <li>
+Verily Retinal Service (Tech Lead, Engineering Manager)
+        <ul>
+
+          <li>Led development of core services including multiple microservices and frontends through exploration, refinement, testing to on-time public launch.</li>
+
+          <li>Focus on third party integrations with customers and partners (e.g. hospital EHR, image grading vendors).</li>
+
+          <li>Responsible for engineering coordination with cross-functional teams required for releasing regulated medical software.</li>
+
+        </ul>
+      </li>
+
+      <li>
+Consumer Health Systems, Verily Lightpath (Software Engineer)
+        <ul>
+
+          <li>Built integrations with biometrics devices (blood glucose monitors, blood pressure cuffs, etc.) for chronic condition management.</li>
+
+          <li>Built data visualizations for healthcare professionals to provide care for patients using integrated devices.</li>
+
+        </ul>
+      </li>
+
+      <li>
+Enrollment, Verily Lightpath &amp; VerilyMe (Tech Lead)
+        <ul>
+
+          <li>Led the team responsible for users&#39; first interactions with the VerilyMe app, both for consumers and Lightpath customers, ensuring seamless onboarding and leak-free funnel.</li>
+
+        </ul>
+      </li>
+
     </ul>
   </div>
+
   <div class="job">
     <div class="job-header">
       <span class="company">Google</span>
@@ -158,36 +178,82 @@
     </div>
     <div class="job-role">Senior Software Engineer</div>
     <ul>
-      <li>Google Video Conferencing Platform (Tech Lead)</li>
-      <ul>
-        <li>Led the development of software powering in-conference room video conferencing experience.</li>
-        <li>Supported hardware and feature modernization in tens of thousands of conference rooms.</li>
-        <li>Managed fleet and reliability monitoring for a high-reliability, seamless experience.</li>
-      </ul>
+
+      <li>
+Google Video Conferencing Platform (Tech Lead)
+        <ul>
+
+          <li>Led the development of software powering in-conference room video conferencing experience.</li>
+
+          <li>Supported hardware and feature modernization in tens of thousands of conference rooms.</li>
+
+          <li>Managed fleet and reliability monitoring for a high-reliability, seamless experience.</li>
+
+        </ul>
+      </li>
+
     </ul>
   </div>
 
+
+  <h2>Skills</h2>
+  <div class="skills-grid">
+
+    <div class="skills-row">
+      <div class="skills-category">Cloud Services</div>
+      <div class="skills-items">GCP, Kubernetes, App Engine, Cloud Run</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skills-category">Databases</div>
+      <div class="skills-items">PostgreSQL, MySQL, BigQuery</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skills-category">Programming &amp; Data</div>
+      <div class="skills-items">Go, Python, Java, JavaScript, TypeScript, React, ProtoBuf, gRPC, JSON</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skills-category">Software Development</div>
+      <div class="skills-items">Docker, terraform, GitHub Actions</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skills-category">Communication</div>
+      <div class="skills-items">Data analysis (numpy, pandas), visualization (Looker Studio, matplotlib)</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skills-category">Other</div>
+      <div class="skills-items">Experience working directly with customers and vendors on requirements, support and documentation, incident management, managed external audits for HIPAA compliance and SOC2/ISO27001 certifications</div>
+    </div>
+
+  </div>
+
+  <div class="no-pdf">
   <h2>Research</h2>
   <div>
     <ul>
+
       <li>
-        <a
-          href="https://web.archive.org/web/20111209110008/http://www.willowgarage.com/blog/2011/07/13/robots-humanity">Robots
-          for Humanity</a>: Along with collaborators at Willow Garage, and the Healthcare Robotics Lab at Georgia Tech,
-        I'm working on enabling persons with severe motor disabilities to use assistive mobile manipulators (AAMs) in
-        their homes. Specifically, I'm working on moving interfaces away from the screen, to be embedded in the real
-        world, tailored to the task at hand.
+
+        <a href="https://web.archive.org/web/20111209110008/http://www.willowgarage.com/blog/2011/07/13/robots-humanity">Robots for Humanity</a>: Along with collaborators at Willow Garage, and the Healthcare Robotics Lab at Georgia Tech, I&#39;m working on enabling persons with severe motor disabilities to use assistive mobile manipulators (AAMs) in their homes. Specifically, I&#39;m working on moving interfaces away from the screen, to be embedded in the real world, tailored to the task at hand.
+
       </li>
+
       <li>
-        Adapting RIDE, a computer game-like interface designed for controlling mobile robots, for use with a multitouch
-        interface.
-        The goal is to use this interface to more effectively supervise large groups (or individual) of autonomous
-        mobile robots.
+
+        Adapting RIDE, a computer game-like interface designed for controlling mobile robots, for use with a multitouch interface. The goal is to use this interface to more effectively supervise large groups (or individual) of autonomous mobile robots.
+
       </li>
+
       <li>
-        Remote Robotic Exploration and Experimentation: A system to for teleoperation of robots, allowing people to
-        explore Colby College's art museum from St. Louis.
+
+        Remote Robotic Exploration and Experimentation: A system to for teleoperation of robots, allowing people to explore Colby College&#39;s art museum from St. Louis.
+
       </li>
+
     </ul>
   </div>
 
@@ -195,44 +261,50 @@
   <div>
     <h3>Author</h3>
     <ul>
-      <li><a href="https://github.com/OSUrobotics/contextual_interfaces">contextual_interfaces</a>: interfaces that
-        adjust based on context such as location and time</li>
-      <li><a href="https://github.com/OSUrobotics/robot_vector_control">robot_vector_control</a>: send a robot
-        navigation goals by intersecting vectors with the floor</li>
-      <li><a href="https://github.com/OSUrobotics/splashscreen">splashscreen</a>: use ROS to control splashscreens on
-        computer displays; useful for running user studies</li>
-      <li><a href="https://github.com/OSUrobotics/glass_ros">glass_ros</a>: Android app and corresponding ROS node to
-        read sensor data off of Google Glass</li>
-      <li><a href="https://github.com/OSUrobotics/ros-3d-interaction">ROS 3D interaction</a>: tools for projecting and
-        interacting with 3D interfaces embedded in the world</li>
-      <li><a href="https://github.com/OSUrobotics/projected-interface-builder">projected_interface_builder</a>: tool for
-        graphically designing projected interfaces</li>
-      <li><a href="https://github.com/OSUrobotics/projected_numchat">projected_numchat: collaboration with CAD Lab at
-          NEU</a>: projected interface for predictive text entry</li>
+
+      <li><a href="https://github.com/OSUrobotics/contextual_interfaces">contextual_interfaces</a>: interfaces that adjust based on context such as location and time</li>
+
+      <li><a href="https://github.com/OSUrobotics/robot_vector_control">robot_vector_control</a>: send a robot navigation goals by intersecting vectors with the floor</li>
+
+      <li><a href="https://github.com/OSUrobotics/splashscreen">splashscreen</a>: use ROS to control splashscreens on computer displays; useful for running user studies</li>
+
+      <li><a href="https://github.com/OSUrobotics/glass_ros">glass_ros</a>: Android app and corresponding ROS node to read sensor data off of Google Glass</li>
+
+      <li><a href="https://github.com/OSUrobotics/ros-3d-interaction">ROS 3D interaction</a>: tools for projecting and interacting with 3D interfaces embedded in the world</li>
+
+      <li><a href="https://github.com/OSUrobotics/projected-interface-builder">projected_interface_builder</a>: tool for graphically designing projected interfaces</li>
+
+      <li><a href="https://github.com/OSUrobotics/projected_numchat">projected_numchat: collaboration with CAD Lab at NEU</a>: projected interface for predictive text entry</li>
+
       <li><a href="https://github.com/OSUrobotics/vlc">vlc</a>: tools for controlling VLC from ROS</li>
-      <li><a href="https://github.com/OSUrobotics/ros-phidgets-ir">ROS Phidets IR</a>: interface between Phidgets IR
-        board and ROS</li>
-      <li><a href="https://github.com/OSUrobotics/bag2video">bag2video</a>: tool for extracting video from ROS bag files
-      </li>
-      <li><a href="https://github.com/ros-visualization/rqt_common_plugins/tree/master/rqt_top">rqt_top</a>: tool for
-        monitoring ROS processes</li>
-      <li><a href="https://github.com/dlaz/gmail-corpus">gmail-corpus</a>: tools for creating predictive text corpora
-        from gmail message history</li>
-      <li><a href="https://github.com/dlaz/rosberrypi_cam">rosberrypi_cam</a>: ROS driver for raspberry pi CSI camera
-        modules</li>
+
+      <li><a href="https://github.com/OSUrobotics/ros-phidgets-ir">ROS Phidets IR</a>: interface between Phidgets IR board and ROS</li>
+
+      <li><a href="https://github.com/OSUrobotics/bag2video">bag2video</a>: tool for extracting video from ROS bag files</li>
+
+      <li><a href="https://github.com/ros-visualization/rqt_common_plugins/tree/master/rqt_top">rqt_top</a>: tool for monitoring ROS processes</li>
+
+      <li><a href="https://github.com/dlaz/gmail-corpus">gmail-corpus</a>: tools for creating predictive text corpora from gmail message history</li>
+
+      <li><a href="https://github.com/dlaz/rosberrypi_cam">rosberrypi_cam</a>: ROS driver for raspberry pi CSI camera modules</li>
 
     </ul>
     <h3>Maintainer</h3>
     <ul>
-      <li><a href="https://github.com/OSUrobotics/ros-head-tracking">head_pose_estimation</a>: 6 DoF head pose
-        estimation from Kinect data</li>
+
+      <li><a href="https://github.com/OSUrobotics/ros-head-tracking">head_pose_estimation</a>: 6 DoF head pose estimation from Kinect data</li>
+
       <li><a href="https://github.com/OSUrobotics/rosh_core">rosh</a>: interactive python shell for ROS</li>
-      <li><a href="https://github.com/wg-perception/people">people</a>: people detection and tracking algorithms in ROS
-      </li>
-      <li><a href="https://github.com/ar-tools/ar_tools">ar_tools</a>: ROS wrapper around ARToolkit for detecting AR
-        tags</li>
+
+      <li><a href="https://github.com/wg-perception/people">people</a>: people detection and tracking algorithms in ROS</li>
+
+      <li><a href="https://github.com/ar-tools/ar_tools">ar_tools</a>: ROS wrapper around ARToolkit for detecting AR tags</li>
+
     </ul>
   </div>
+  </div>
+
+  <div id="publications-section" class="no-pdf">
   <h2>Publications</h2>
   <div>
     <table>
@@ -244,14 +316,11 @@
         <td class="bibtexitem">
           Daniel&nbsp;A Lazewatsky and William&nbsp;D Smart.
           Evaluation of interfaces for 3d pointing.
-          In <em>Proceedings of the Tenth Annual ACM/IEEE International
-            Conference on Human-Robot Interaction Extended Abstracts</em>, pages 25&ndash;26. ACM,
+          In <em>Proceedings of the Tenth Annual ACM/IEEE International Conference on Human-Robot Interaction Extended Abstracts</em>, pages 25&ndash;26. ACM,
           2015.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2015evaluation">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -262,10 +331,8 @@
           Reclaiming microinteractions for people with motor disabilities,
           2014.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2014reclaiming">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -276,26 +343,21 @@
           Understanding user needs: A systems view.
           2014.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2014understanding">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
           [<a name="lazewatsky2014wearable">4</a>]
         </td>
         <td class="bibtexitem">
-          Daniel&nbsp;A Lazewatsky, Cameron Bowie, William Curran, Jasper LaFortune, Benjamin
-          Narin, Duy Nguyen, Amy Wyman, and William&nbsp;D Smart.
+          Daniel&nbsp;A Lazewatsky, Cameron Bowie, William Curran, Jasper LaFortune, Benjamin Narin, Duy Nguyen, Amy Wyman, and William&nbsp;D Smart.
           Wearable computing to enable robot microinteractions.
-          In <em>Robot and Human Interactive Communication, 2014 RO-MAN: The
-            23rd IEEE International Symposium on</em>, pages 141&ndash;146. IEEE, 2014.
+          In <em>Robot and Human Interactive Communication, 2014 RO-MAN: The 23rd IEEE International Symposium on</em>, pages 141&ndash;146. IEEE,
+          2014.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2014wearable">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -304,46 +366,36 @@
         <td class="bibtexitem">
           Daniel Lazewatsky and William&nbsp;D Smart.
           Accessible interfaces for robot assistants.
-          In <em>RO-MAN 2014: The 23rd IEEE International Symposium on Robot
-            and Human Interactive Communication</em>, pages 106&ndash;111. IEEE, 2014.
+          In <em>RO-MAN 2014: The 23rd IEEE International Symposium on Robot and Human Interactive Communication</em>, pages 106&ndash;111. IEEE,
+          2014.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2014accessible">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
           [<a name="chen2013robots">6</a>]
         </td>
         <td class="bibtexitem">
-          Tiffany&nbsp;L Chen, Matei Ciocarlie, Steve Cousins, Phillip&nbsp;M Grice, Kelsey
-          Hawkins, Kaijen Hsiao, Charles&nbsp;C Kemp, Chih-Hung King, Daniel&nbsp;A Lazewatsky,
-          Hai Nguyen, et&nbsp;al.
+          Tiffany&nbsp;L Chen, Matei Ciocarlie, Steve Cousins, Phillip&nbsp;M Grice, Kelsey Hawkins, Kaijen Hsiao, Charles&nbsp;C Kemp, Chih-Hung King, Daniel&nbsp;A Lazewatsky, Hai Nguyen, et&nbsp;al.
           Robots for humanity: A case study in assistive mobile manipulation.
           2013.
           [&nbsp;<a href="danpapers_bib.html#chen2013robots">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
           [<a name="shen2013hri">7</a>]
         </td>
         <td class="bibtexitem">
-          Solace Shen, Henny Admoni, Caroline Harriott, Yunkyung Kim, Matt Marge, Marynel
-          V&aacute;zquez, Astrid Rosenthal-von&nbsp;der Putten, Matt Beane, Yasuhiko Hato,
-          Daniel Lazewatsky, et&nbsp;al.
+          Solace Shen, Henny Admoni, Caroline Harriott, Yunkyung Kim, Matt Marge, Marynel V&aacute;zquez, Astrid Rosenthal-von&nbsp;der Putten, Matt Beane, Yasuhiko Hato, Daniel Lazewatsky, et&nbsp;al.
           Hri pioneers workshop 2013.
-          In <em>Human-Robot Interaction (HRI), 2013 8th ACM/IEEE
-            International Conference on</em>, pages 439&ndash;440. IEEE, 2013.
+          In <em>Human-Robot Interaction (HRI), 2013 8th ACM/IEEE International Conference on</em>, pages 439&ndash;440. IEEE,
+          2013.
           [&nbsp;<a href="danpapers_bib.html#shen2013hri">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -351,32 +403,25 @@
         </td>
         <td class="bibtexitem">
           Daniel&nbsp;A Lazewatsky and William&nbsp;D Smart.
-          Context-sensitive in-the-world interfaces for mobile manipulation
-          robots.
-          In <em>RO-MAN, 2012 IEEE</em>, pages 989&ndash;994. IEEE, 2012.
+          Context-sensitive in-the-world interfaces for mobile manipulation robots.
+          In <em>RO-MAN, 2012 IEEE</em>, pages 989&ndash;994. IEEE,
+          2012.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2012context">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
           [<a name="chen2012robots">9</a>]
         </td>
         <td class="bibtexitem">
-          Tiffany&nbsp;L Chen, Matei Ciocarlie, Steve Cousins, Phillip Grice, Kelsey Hawkins,
-          Kaijen Hsiao, Charles&nbsp;C Kemp, Chih-Hung King, Daniel&nbsp;A Lazewatsky, Adam
-          Leeper, et&nbsp;al.
-          Robots for humanity: User-centered design for assistive mobile
-          manipulation.
-          In <em>Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ
-            International Conference on</em>, pages 5434&ndash;5435. IEEE, 2012.
+          Tiffany&nbsp;L Chen, Matei Ciocarlie, Steve Cousins, Phillip Grice, Kelsey Hawkins, Kaijen Hsiao, Charles&nbsp;C Kemp, Chih-Hung King, Daniel&nbsp;A Lazewatsky, Adam Leeper, et&nbsp;al.
+          Robots for humanity: User-centered design for assistive mobile manipulation.
+          In <em>Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ International Conference on</em>, pages 5434&ndash;5435. IEEE,
+          2012.
           [&nbsp;<a href="danpapers_bib.html#chen2012robots">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -385,29 +430,24 @@
         <td class="bibtexitem">
           Daniel&nbsp;A Lazewatsky and William&nbsp;D Smart.
           An inexpensive robot platform for teleoperation and experimentation.
-          In <em>Robotics and Automation (ICRA), 2011 IEEE International
-            Conference on</em>, pages 1211&ndash;1216. IEEE, 2011.
+          In <em>Robotics and Automation (ICRA), 2011 IEEE International Conference on</em>, pages 1211&ndash;1216. IEEE,
+          2011.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2011inexpensive">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
           [<a name="lazewatsky2011context">11</a>]
         </td>
         <td class="bibtexitem">
-          Daniel&nbsp;A Lazewatsky, Bogumil Giertler, Martha Witick, Leah Perlmutter, Bruce&nbsp;A
-          Maxwell, and William&nbsp;D Smart.
+          Daniel&nbsp;A Lazewatsky, Bogumil Giertler, Martha Witick, Leah Perlmutter, Bruce&nbsp;A Maxwell, and William&nbsp;D Smart.
           Context-aware video compression for mobile robots.
-          In <em>Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ
-            International Conference on</em>, pages 4115&ndash;4120. IEEE, 2011.
+          In <em>Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ International Conference on</em>, pages 4115&ndash;4120. IEEE,
+          2011.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2011context">bib</a>&nbsp;]
-
         </td>
       </tr>
-
 
       <tr valign="top">
         <td align="right" class="bibtexnumber">
@@ -416,103 +456,35 @@
         <td class="bibtexitem">
           Daniel&nbsp;A Lazewatsky and William&nbsp;D Smart.
           A panorama interface for telepresence robots.
-          In <em>Proceedings of the 6th international conference on
-            Human-robot interaction</em>, pages 177&ndash;178. ACM, 2011.
+          In <em>Proceedings of the 6th international conference on Human-robot interaction</em>, pages 177&ndash;178. ACM,
+          2011.
           [&nbsp;<a href="danpapers_bib.html#lazewatsky2011panorama">bib</a>&nbsp;]
-
         </td>
       </tr>
+
     </table>
     <hr>
     <p><em>This file was generated by
         <a href="http://www.lri.fr/~filliatr/bibtex2html/">bibtex2html</a> 1.98.</em></p>
   </div>
+  </div>
+
   <div id="bibtex" style="display:none">
-    <h1>danpapers.bib</h1><a name="lazewatsky2011inexpensive"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2011inexpensive">lazewatsky2011inexpensive</a>,
-  title = {An inexpensive robot platform for teleoperation and experimentation},
-  author = {Lazewatsky, Daniel A and Smart, William D},
-  booktitle = {Robotics and Automation (ICRA), 2011 IEEE International Conference on},
-  pages = {1211--1216},
-  year = {2011},
-  organization = {IEEE}
-}
-</pre>
+    <h1>danpapers.bib</h1>
 
-    <a name="lazewatsky2011context"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2011context">lazewatsky2011context</a>,
-  title = {Context-aware video compression for mobile robots},
-  author = {Lazewatsky, Daniel A and Giertler, Bogumil and Witick, Martha and Perlmutter, Leah and Maxwell, Bruce A and Smart, William D},
-  booktitle = {Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ International Conference on},
-  pages = {4115--4120},
-  year = {2011},
-  organization = {IEEE}
-}
-</pre>
-
-    <a name="lazewatsky2011panorama"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2011panorama">lazewatsky2011panorama</a>,
-  title = {A panorama interface for telepresence robots},
+    <a name="lazewatsky2015evaluation"></a>
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2015evaluation">lazewatsky2015evaluation</a>,
+  title = {Evaluation of interfaces for 3D pointing},
   author = {Lazewatsky, Daniel A and Smart, William D},
-  booktitle = {Proceedings of the 6th international conference on Human-robot interaction},
-  pages = {177--178},
-  year = {2011},
+  booktitle = {Proceedings of the Tenth Annual ACM/IEEE International Conference on Human-Robot Interaction Extended Abstracts},
+  pages = {25--26},
+  year = {2015},
   organization = {ACM}
 }
 </pre>
 
-    <a name="lazewatsky2012context"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2012context">lazewatsky2012context</a>,
-  title = {Context-sensitive in-the-world interfaces for mobile manipulation robots},
-  author = {Lazewatsky, Daniel A and Smart, William D},
-  booktitle = {RO-MAN, 2012 IEEE},
-  pages = {989--994},
-  year = {2012},
-  organization = {IEEE}
-}
-</pre>
-
-    <a name="chen2012robots"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#chen2012robots">chen2012robots</a>,
-  title = {Robots for humanity: User-centered design for assistive mobile manipulation},
-  author = {Chen, Tiffany L and Ciocarlie, Matei and Cousins, Steve and Grice, Phillip and Hawkins, Kelsey and Hsiao, Kaijen and Kemp, Charles C and King, Chih-Hung and Lazewatsky, Daniel A and Leeper, Adam and others},
-  booktitle = {Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ International Conference on},
-  pages = {5434--5435},
-  year = {2012},
-  organization = {IEEE}
-}
-</pre>
-
-    <a name="chen2013robots"></a>
-    <pre>
-@article{<a href="danpapers.html#chen2013robots">chen2013robots</a>,
-  title = {Robots for humanity: A case study in assistive mobile manipulation},
-  author = {Chen, Tiffany L and Ciocarlie, Matei and Cousins, Steve and Grice, Phillip M and Hawkins, Kelsey and Hsiao, Kaijen and Kemp, Charles C and King, Chih-Hung and Lazewatsky, Daniel A and Nguyen, Hai and others},
-  year = {2013},
-  publisher = {Georgia Institute of Technology}
-}
-</pre>
-
-    <a name="shen2013hri"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#shen2013hri">shen2013hri</a>,
-  title = {HRI pioneers workshop 2013},
-  author = {Shen, Solace and Admoni, Henny and Harriott, Caroline and Kim, Yunkyung and Marge, Matt and V{\'a}zquez, Marynel and Rosenthal-von der Putten, Astrid and Beane, Matt and Hato, Yasuhiko and Lazewatsky, Daniel and others},
-  booktitle = {Human-Robot Interaction (HRI), 2013 8th ACM/IEEE International Conference on},
-  pages = {439--440},
-  year = {2013},
-  organization = {IEEE}
-}
-</pre>
-
     <a name="lazewatsky2014reclaiming"></a>
-    <pre>
-@misc{<a href="danpapers.html#lazewatsky2014reclaiming">lazewatsky2014reclaiming</a>,
+    <pre>@misc{<a href="danpapers.html#lazewatsky2014reclaiming">lazewatsky2014reclaiming</a>,
   title = {Reclaiming Microinteractions for People with Motor Disabilities},
   author = {Lazewatsky, Daniel A and Smart, William D},
   year = {2014}
@@ -520,8 +492,7 @@
 </pre>
 
     <a name="lazewatsky2014understanding"></a>
-    <pre>
-@article{<a href="danpapers.html#lazewatsky2014understanding">lazewatsky2014understanding</a>,
+    <pre>@article{<a href="danpapers.html#lazewatsky2014understanding">lazewatsky2014understanding</a>,
   title = {Understanding User Needs: A Systems View},
   author = {Lazewatsky, Daniel A and Smart, William D},
   year = {2014}
@@ -529,8 +500,7 @@
 </pre>
 
     <a name="lazewatsky2014wearable"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2014wearable">lazewatsky2014wearable</a>,
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2014wearable">lazewatsky2014wearable</a>,
   title = {Wearable computing to enable robot microinteractions},
   author = {Lazewatsky, Daniel A and Bowie, Cameron and Curran, William and LaFortune, Jasper and Narin, Benjamin and Nguyen, Duy and Wyman, Amy and Smart, William D},
   booktitle = {Robot and Human Interactive Communication, 2014 RO-MAN: The 23rd IEEE International Symposium on},
@@ -541,8 +511,7 @@
 </pre>
 
     <a name="lazewatsky2014accessible"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2014accessible">lazewatsky2014accessible</a>,
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2014accessible">lazewatsky2014accessible</a>,
   title = {Accessible interfaces for robot assistants},
   author = {Lazewatsky, Daniel and Smart, William D},
   booktitle = {RO-MAN 2014: The 23rd IEEE International Symposium on Robot and Human Interactive Communication},
@@ -552,14 +521,77 @@
 }
 </pre>
 
-    <a name="lazewatsky2015evaluation"></a>
-    <pre>
-@inproceedings{<a href="danpapers.html#lazewatsky2015evaluation">lazewatsky2015evaluation</a>,
-  title = {Evaluation of interfaces for 3D pointing},
+    <a name="chen2013robots"></a>
+    <pre>@article{<a href="danpapers.html#chen2013robots">chen2013robots</a>,
+  title = {Robots for humanity: A case study in assistive mobile manipulation},
+  author = {Chen, Tiffany L and Ciocarlie, Matei and Cousins, Steve and Grice, Phillip M and Hawkins, Kelsey and Hsiao, Kaijen and Kemp, Charles C and King, Chih-Hung and Lazewatsky, Daniel A and Nguyen, Hai and others},
+  year = {2013},
+  publisher = {Georgia Institute of Technology}
+}
+</pre>
+
+    <a name="shen2013hri"></a>
+    <pre>@inproceedings{<a href="danpapers.html#shen2013hri">shen2013hri</a>,
+  title = {HRI pioneers workshop 2013},
+  author = {Shen, Solace and Admoni, Henny and Harriott, Caroline and Kim, Yunkyung and Marge, Matt and V{\'a}zquez, Marynel and Rosenthal-von der Putten, Astrid and Beane, Matt and Hato, Yasuhiko and Lazewatsky, Daniel and others},
+  booktitle = {Human-Robot Interaction (HRI), 2013 8th ACM/IEEE International Conference on},
+  pages = {439--440},
+  year = {2013},
+  organization = {IEEE}
+}
+</pre>
+
+    <a name="lazewatsky2012context"></a>
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2012context">lazewatsky2012context</a>,
+  title = {Context-sensitive in-the-world interfaces for mobile manipulation robots},
   author = {Lazewatsky, Daniel A and Smart, William D},
-  booktitle = {Proceedings of the Tenth Annual ACM/IEEE International Conference on Human-Robot Interaction Extended Abstracts},
-  pages = {25--26},
-  year = {2015},
+  booktitle = {RO-MAN, 2012 IEEE},
+  pages = {989--994},
+  year = {2012},
+  organization = {IEEE}
+}
+</pre>
+
+    <a name="chen2012robots"></a>
+    <pre>@inproceedings{<a href="danpapers.html#chen2012robots">chen2012robots</a>,
+  title = {Robots for humanity: User-centered design for assistive mobile manipulation},
+  author = {Chen, Tiffany L and Ciocarlie, Matei and Cousins, Steve and Grice, Phillip and Hawkins, Kelsey and Hsiao, Kaijen and Kemp, Charles C and King, Chih-Hung and Lazewatsky, Daniel A and Leeper, Adam and others},
+  booktitle = {Intelligent Robots and Systems (IROS), 2012 IEEE/RSJ International Conference on},
+  pages = {5434--5435},
+  year = {2012},
+  organization = {IEEE}
+}
+</pre>
+
+    <a name="lazewatsky2011inexpensive"></a>
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2011inexpensive">lazewatsky2011inexpensive</a>,
+  title = {An inexpensive robot platform for teleoperation and experimentation},
+  author = {Lazewatsky, Daniel A and Smart, William D},
+  booktitle = {Robotics and Automation (ICRA), 2011 IEEE International Conference on},
+  pages = {1211--1216},
+  year = {2011},
+  organization = {IEEE}
+}
+</pre>
+
+    <a name="lazewatsky2011context"></a>
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2011context">lazewatsky2011context</a>,
+  title = {Context-aware video compression for mobile robots},
+  author = {Lazewatsky, Daniel A and Giertler, Bogumil and Witick, Martha and Perlmutter, Leah and Maxwell, Bruce A and Smart, William D},
+  booktitle = {Intelligent Robots and Systems (IROS), 2011 IEEE/RSJ International Conference on},
+  pages = {4115--4120},
+  year = {2011},
+  organization = {IEEE}
+}
+</pre>
+
+    <a name="lazewatsky2011panorama"></a>
+    <pre>@inproceedings{<a href="danpapers.html#lazewatsky2011panorama">lazewatsky2011panorama</a>,
+  title = {A panorama interface for telepresence robots},
+  author = {Lazewatsky, Daniel A and Smart, William D},
+  booktitle = {Proceedings of the 6th international conference on Human-robot interaction},
+  pages = {177--178},
+  year = {2011},
   organization = {ACM}
 }
 </pre>
