@@ -255,6 +255,7 @@ td.bibtexitem {
     #bibtex,
     #ref-dialog,
     #publications-section,
+    .no-pdf,
     .ui-dialog {
         display: none !important;
     }
