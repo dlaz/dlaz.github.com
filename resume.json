@@ -2,7 +2,13 @@
   "profile": {
     "name": "Dan Lazewatsky",
     "headshot": "headshot.jpg",
+    "email": "dan@lazewatsky.com",
     "links": [
+      {
+        "label": "dan@lazewatsky.com",
+        "url": "mailto:dan@lazewatsky.com",
+        "icon": "email"
+      },
       {
         "label": "LinkedIn",
         "url": "https://www.linkedin.com/in/danlazewatsky/",
@@ -30,8 +36,8 @@
     }
   ],
   "about": [
-    "Experienced software engineer and researcher with a strong background in building cloud infrastructure, web services, and applications. Particular experience managing large fleets of physical hardware requiring low latency and high availability, and building insights from resulting datasets. Excels in designing and managing cloud architectures, deploying cloud applications to heterogeneous environments. Proven ability to own and support software throughout its full lifecycle.",
-    "I am currently a Software Engineer at Verily in Boston."
+    "Experienced software engineer and researcher with a strong background in building cloud infrastructure, web services, and applications. Particular experience managing large fleets of physical hardware requiring low latency and high availability, and building insights from resulting datasets. Skilled at deploying cloud applications to heterogeneous environments and owning software through its full lifecycle.",
+    "Currently a Staff Software Engineer at Verily in Boston."
   ],
   "experience": [
     {
@@ -64,7 +70,7 @@
           "items": [
             "Led development of core services including multiple microservices and frontends through exploration, refinement, testing to on-time public launch.",
             "Focus on third party integrations with customers and partners (e.g. hospital EHR, image grading vendors).",
-            "Responsible for engineering coordination with cross-functional teams required for releasing regulated medical software."
+            "Led cross-functional engineering coordination with regulatory, clinical, and product teams to achieve on-time launch of regulated medical software."
           ]
         },
         {
