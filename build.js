@@ -12,6 +12,10 @@ const resume = JSON.parse(fs.readFileSync(path.join(ROOT, 'resume.json'), 'utf8'
 // ── SVG icons ────────────────────────────────────────────────────────────────
 
 const icons = {
+  email: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,12 2,6"/>
+          </svg>`,
   linkedin: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>`,
@@ -110,17 +114,20 @@ async function build() {
       const headshot = document.getElementById('me');
       if (headshot) headshot.style.display = 'none';
     });
-    // Inject compact styles to keep the PDF to ≤2 pages
+    // Inject compact styles to keep the PDF to 2 pages with a clean break before Google
     await page.addStyleTag({ content: `
-      body { font-size: 0.875rem; line-height: 1.4; }
-      .profile { padding-bottom: 0.6rem; margin-bottom: 0; }
-      h2 { margin-top: 0.6rem; margin-bottom: 0.35rem; }
-      .job { padding: 0.3rem 0.5rem; margin-bottom: 0; }
-      .job-role { margin-bottom: 0.15rem; }
-      ul { margin-top: 0.15rem; margin-bottom: 0.15rem; }
+      body { font-size: 0.875rem; line-height: 1.35; }
+      .profile { padding-bottom: 0.5rem; margin-bottom: 0; }
+      h2 { margin-top: 0.5rem; margin-bottom: 0.3rem; }
+      .job { padding: 0.25rem 0.5rem; margin-bottom: 0; }
+      .job-role { margin-bottom: 0.1rem; }
+      ul { margin-top: 0.1rem; margin-bottom: 0.1rem; }
       li { margin-bottom: 0; }
-      .skills-grid { gap: 0.15rem 1rem; }
-      .section p { margin-bottom: 0.35rem; }
+      .skills-grid { gap: 0.1rem 1rem; }
+      .section p { margin-bottom: 0.3rem; }
+      .project-item { break-inside: avoid; page-break-inside: avoid; }
+      /* Force page break before Google so all Verily content stays on page 1 */
+      .job + .job { break-before: page; page-break-before: always; }
     ` });
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),

@@ -65,20 +65,9 @@
           Download PDF
         </a>
       </div>
-      <ul id="basicinfo">
-        <li>
-          <div class="colored">Education</div>
-          <ul>
-<% data.education.forEach(function(edu) { %>
-            <li>
-              <%= edu.degree %> | <a href="<%= edu.institutionUrl %>"><%= edu.institution %></a><% if (edu.group) { %> | <a href="<%= edu.groupUrl %>"><%= edu.group %></a><% } %>
-            </li>
-<% }); %>
-          </ul>
-        </li>
-      </ul>
     </div>
   </div>
+
   <h2>About</h2>
   <div class="section">
 <% data.about.forEach(function(para) { %>
@@ -96,8 +85,8 @@
     <div class="job-role"><%= job.role %></div>
     <ul>
 <% job.projects.forEach(function(project) { %>
-      <li>
-<% if (project.url) { %><a href="<%= project.url %>" target="_blank" rel="noopener noreferrer"><%= project.title %></a><% } else { %><%= project.title %><% } %> (<%= project.roleLabel %>)
+      <li class="project-item">
+        <span class="project-title"><% if (project.url) { %><a href="<%= project.url %>" target="_blank" rel="noopener noreferrer"><%= project.title %></a><% } else { %><%= project.title %><% } %></span> <span class="project-role">(<%= project.roleLabel %>)</span>
         <ul>
 <% project.items.forEach(function(item) { %>
           <li><%= item %></li>
@@ -115,6 +104,15 @@
     <div class="skills-row">
       <div class="skills-category"><%= category %></div>
       <div class="skills-items"><%= items.join(', ') %></div>
+    </div>
+<% }); %>
+  </div>
+
+  <h2>Education</h2>
+  <div class="education-list">
+<% data.education.forEach(function(edu) { %>
+    <div class="edu-item">
+      <span class="edu-degree"><%= edu.degree %></span> &mdash; <a href="<%= edu.institutionUrl %>"><%= edu.institution %></a><% if (edu.group) { %> &mdash; <a href="<%= edu.groupUrl %>"><%= edu.group %></a><% } %>
     </div>
 <% }); %>
   </div>
