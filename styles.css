@@ -190,6 +190,9 @@ div.section {
     gap: 0.35rem 1.25rem;
     padding: 0 0.75rem;
 }
+.skills-row {
+    display: contents;
+}
 .skills-category {
     font-weight: 600;
     font-size: 0.85rem;
