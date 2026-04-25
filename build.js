@@ -107,10 +107,22 @@ async function build() {
     await page.evaluate(() => {
       document.querySelectorAll('.no-pdf').forEach(el => { el.style.display = 'none'; });
     });
+    // Inject compact styles to keep the PDF to ≤2 pages
+    await page.addStyleTag({ content: `
+      body { font-size: 0.875rem; line-height: 1.4; }
+      .profile { padding-bottom: 0.6rem; margin-bottom: 0; }
+      h2 { margin-top: 0.6rem; margin-bottom: 0.35rem; }
+      .job { padding: 0.3rem 0.5rem; margin-bottom: 0; }
+      .job-role { margin-bottom: 0.15rem; }
+      ul { margin-top: 0.15rem; margin-bottom: 0.15rem; }
+      li { margin-bottom: 0; }
+      .skills-grid { gap: 0.15rem 1rem; }
+      .section p { margin-bottom: 0.35rem; }
+    ` });
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),
       format: 'Letter',
-      margin: { top: '0.75in', right: '2.0in', bottom: '0.75in', left: '2.0in' },
+      margin: { top: '0.75in', right: '0.75in', bottom: '0.75in', left: '0.75in' },
       printBackground: true,
     });
     console.log('✓ Generated resume.pdf');
