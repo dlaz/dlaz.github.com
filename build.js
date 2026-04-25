@@ -116,20 +116,23 @@ async function build() {
     });
     // Inject compact styles to keep the PDF to ≤2 pages
     await page.addStyleTag({ content: `
-      body { font-size: 0.875rem; line-height: 1.4; }
-      .profile { padding-bottom: 0.6rem; margin-bottom: 0; }
-      h2 { margin-top: 0.6rem; margin-bottom: 0.35rem; }
-      .job { padding: 0.3rem 0.5rem; margin-bottom: 0; }
-      .job-role { margin-bottom: 0.15rem; }
-      ul { margin-top: 0.15rem; margin-bottom: 0.15rem; }
+      body { font-size: 0.845rem; line-height: 1.3; }
+      .profile { padding-bottom: 0.4rem; margin-bottom: 0; }
+      h2 { margin-top: 0.4rem; margin-bottom: 0.25rem; }
+      .job { padding: 0.2rem 0.5rem; margin-bottom: 0; }
+      .job-role { margin-bottom: 0.08rem; }
+      ul { margin-top: 0.08rem; margin-bottom: 0.08rem; }
       li { margin-bottom: 0; }
-      .skills-grid { gap: 0.15rem 1rem; }
-      .section p { margin-bottom: 0.35rem; }
+      .skills-grid { gap: 0.08rem 1rem; }
+      .section p { margin-bottom: 0.25rem; }
+      .education-list { padding-top: 0; }
+      .edu-item { padding: 0.1rem 0; }
+      .project-item { break-inside: avoid; page-break-inside: avoid; }
     ` });
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),
       format: 'Letter',
-      margin: { top: '0.75in', right: '0.75in', bottom: '0.75in', left: '0.75in' },
+      margin: { top: '0.55in', right: '0.75in', bottom: '0.55in', left: '0.75in' },
       printBackground: true,
     });
     console.log('✓ Generated resume.pdf');
