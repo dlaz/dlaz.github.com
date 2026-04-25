@@ -266,6 +266,22 @@ td.bibtexitem {
     color: var(--text-muted);
     font-size: 0.88rem;
 }
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+.project-meta {
+    flex: 1;
+    min-width: 0;
+}
+.project-dates {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
 
 /* ── Print / PDF ── */
 @media print {
