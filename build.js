@@ -106,7 +106,7 @@ async function build() {
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),
       format: 'Letter',
-      margin: { top: '0.5in', right: '0.5in', bottom: '0.5in', left: '0.5in' },
+      margin: { top: '0.75in', right: '1.25in', bottom: '0.75in', left: '1.25in' },
       printBackground: true,
     });
     console.log('✓ Generated resume.pdf');

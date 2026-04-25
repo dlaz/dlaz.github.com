@@ -233,6 +233,7 @@ td.bibtexitem {
     /* Suppress interactive-only elements */
     #bibtex,
     #ref-dialog,
+    #publications-section,
     .ui-dialog {
         display: none !important;
     }
