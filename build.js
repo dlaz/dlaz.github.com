@@ -103,6 +103,10 @@ async function build() {
 
     // 5. Generate PDF (screen emulation so styled CSS applies)
     await page.emulateMediaType('screen');
+    // Hide sections that should not appear in the PDF
+    await page.evaluate(() => {
+      document.querySelectorAll('.no-pdf').forEach(el => { el.style.display = 'none'; });
+    });
     await page.pdf({
       path: path.join(ROOT, 'resume.pdf'),
       format: 'Letter',
