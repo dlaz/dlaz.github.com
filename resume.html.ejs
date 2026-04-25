@@ -11,10 +11,10 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
   <script>
     function longestLine(text) {
-      lines = text.split('\n');
-      longest = 0;
-      for (var i = 0; i < lines.length; i++) {
-        len = lines[i].length;
+      const lines = text.split('\n');
+      let longest = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const len = lines[i].length;
         longest = len > longest ? len : longest;
       }
       return longest;
@@ -23,14 +23,14 @@
     $().ready(function () {
       //setup the bibtex references
       $('.bibtexitem a').each(function (ix) {
-        text = $(this).text();
-        newSpan = $('<span/>').text(text);
+        const text = $(this).text();
+        const newSpan = $('<span/>').text(text);
         newSpan.addClass('biblink');
         $(this).replaceWith(newSpan);
         newSpan.click(function () {
-          cite_text = $($('#bibtex pre')[ix]).text();
-          pub_title = cite_text.match(/\stitle\s=\s\{(.+)\}/)[1];
-          dialog = $('#ref-dialog').dialog({
+          const cite_text = $($('#bibtex pre')[ix]).text();
+          const pub_title = cite_text.match(/\stitle\s=\s\{(.+)\}/)[1];
+          const dialog = $('#ref-dialog').dialog({
             modal: true,
             minWidth: 1024,
             title: pub_title,
@@ -43,16 +43,6 @@
   </script>
   <title><%= data.profile.name %></title>
 </head>
-<script type="text/javascript">
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-  try {
-    var pageTracker = _gat._getTracker("UA-12221940-1");
-    pageTracker._trackPageview();
-  } catch (err) { }
-</script>
 
 <body>
   <div class="profile">

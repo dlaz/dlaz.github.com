@@ -105,7 +105,7 @@
     "Cloud Services": ["GCP", "Kubernetes", "App Engine", "Cloud Run"],
     "Databases": ["PostgreSQL", "MySQL", "BigQuery"],
     "Programming & Data": ["Go", "Python", "Java", "JavaScript", "TypeScript", "React", "ProtoBuf", "gRPC", "JSON"],
-    "Software Development": ["Docker", "terraform", "Github Actions"],
+    "Software Development": ["Docker", "terraform", "GitHub Actions"],
     "Communication": ["Data analysis (numpy, pandas)", "visualization (Looker Studio, matplotlib)"],
     "Other": ["Experience working directly with customers and vendors on requirements, support and documentation", "incident management", "managed external audits for HIPAA compliance and SOC2/ISO27001 certifications"]
   },

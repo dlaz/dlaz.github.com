@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { pathToFileURL } = require('url');
 const ejs = require('ejs');
 const puppeteer = require('puppeteer');
 
@@ -78,8 +79,8 @@ async function build() {
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1.5 });
 
-    const fileUrl = `file://${indexPath}`;
-    await page.goto(fileUrl, { waitUntil: 'networkidle0', timeout: 30000 });
+    const fileUrl = pathToFileURL(indexPath).href;
+    await page.goto(fileUrl, { waitUntil: 'networkidle2', timeout: 30000 });
 
     // Ensure screenshots directory exists
     const screenshotsDir = path.join(ROOT, 'screenshots');

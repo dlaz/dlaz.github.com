@@ -60,7 +60,11 @@ jobs:
           if git show-ref --verify --quiet refs/remotes/origin/screenshots; then
             git worktree add /tmp/screenshots-worktree -b screenshots-ci origin/screenshots
           else
-            git worktree add --orphan -b screenshots-ci /tmp/screenshots-worktree
+            git worktree add --detach /tmp/screenshots-worktree HEAD
+            cd /tmp/screenshots-worktree
+            git checkout --orphan screenshots-ci
+            git rm -rf . 2>/dev/null || true
+            cd - > /dev/null
           fi
 
           cp screenshots/html-screenshot.png "/tmp/screenshots-worktree/$HTML_FILE"
