@@ -46,14 +46,32 @@
       "role": "Staff Software Engineer",
       "projects": [
         {
-          "title": "Lumi by Pampers",
-          "start_year": 2019,
-          "end_year": 2020,
-          "url": "https://web.archive.org/web/20240902050109/https://news.pg.com/news-releases/news-details/2020/Baby-Monitoring-Takes-a-Quantum-Leap-Lumi-by-Pampers-All-in-One-Connected-Baby-Care-System-Unveiled-at-CES-2020/default.aspx",
+          "title": "Enrollment, Verily Lightpath & VerilyMe",
+          "start_year": 2025,
           "roleLabel": "Tech Lead",
           "items": [
-            "Led the development of a smart diaper sensor and camera system.",
-            "Built backend services to drive mobile app experience for caregivers."
+            "Led the team responsible for users' first interactions with the VerilyMe app, both for consumers and Lightpath customers, ensuring seamless onboarding and leak-free funnel."
+          ]
+        },
+        {
+          "title": "Consumer Health Systems, Verily Lightpath",
+          "start_year": 2025,
+          "end_year": 2025,
+          "roleLabel": "Software Engineer",
+          "items": [
+            "Built integrations with biometrics devices (blood glucose monitors, blood pressure cuffs, etc.) for chronic condition management.",
+            "Built data visualizations for healthcare professionals to provide care for patients using integrated devices."
+          ]
+        },
+        {
+          "title": "Verily Retinal Service",
+          "start_year": 2022,
+          "end_year": 2025,
+          "roleLabel": "Tech Lead, Engineering Manager",
+          "items": [
+            "Led development of core services including multiple microservices and frontends through exploration, refinement, testing to on-time public launch.",
+            "Focus on third party integrations with customers and partners (e.g. hospital EHR, image grading vendors).",
+            "Led cross-functional engineering coordination with regulatory, clinical, and product teams to achieve on-time launch of regulated medical software."
           ]
         },
         {
@@ -69,32 +87,14 @@
           ]
         },
         {
-          "title": "Verily Retinal Service",
-          "start_year": 2022,
-          "end_year": 2025,
-          "roleLabel": "Tech Lead, Engineering Manager",
-          "items": [
-            "Led development of core services including multiple microservices and frontends through exploration, refinement, testing to on-time public launch.",
-            "Focus on third party integrations with customers and partners (e.g. hospital EHR, image grading vendors).",
-            "Led cross-functional engineering coordination with regulatory, clinical, and product teams to achieve on-time launch of regulated medical software."
-          ]
-        },
-        {
-          "title": "Consumer Health Systems, Verily Lightpath",
-          "start_year": 2025,
-          "end_year": 2025,
-          "roleLabel": "Software Engineer",
-          "items": [
-            "Built integrations with biometrics devices (blood glucose monitors, blood pressure cuffs, etc.) for chronic condition management.",
-            "Built data visualizations for healthcare professionals to provide care for patients using integrated devices."
-          ]
-        },
-        {
-          "title": "Enrollment, Verily Lightpath & VerilyMe",
-          "start_year": 2025,
+          "title": "Lumi by Pampers",
+          "start_year": 2019,
+          "end_year": 2020,
+          "url": "https://web.archive.org/web/20240902050109/https://news.pg.com/news-releases/news-details/2020/Baby-Monitoring-Takes-a-Quantum-Leap-Lumi-by-Pampers-All-in-One-Connected-Baby-Care-System-Unveiled-at-CES-2020/default.aspx",
           "roleLabel": "Tech Lead",
           "items": [
-            "Led the team responsible for users' first interactions with the VerilyMe app, both for consumers and Lightpath customers, ensuring seamless onboarding and leak-free funnel."
+            "Led the development of a smart diaper sensor and camera system.",
+            "Built backend services to drive mobile app experience for caregivers."
           ]
         }
       ]
